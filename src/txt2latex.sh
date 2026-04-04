@@ -21,8 +21,10 @@ SYNOPSIS
   $PROGNAME [OPTIONS]... FILE" 
 
 DESCRIPTION
-  txt2latex converts the input text into LaTeX.
-  txt2man is also able to recognize and format sections, paragraphs,
+  $PROGNAME converts the input text into LaTeX. The conversion procedure
+  is strongly inspired by txt2man.
+
+  $PROGNAME is also able to recognize and format sections, paragraphs,
   lists (standard, numbered, description, nested), literal display blocks.
   If input file FILE is omitted, standard input is used. 
   Result is displayed on standard output. 
