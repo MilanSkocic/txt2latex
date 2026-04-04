@@ -1,0 +1,20 @@
+NAME
+  txt2latex - convert flat ASCII text to LaTeX.
+
+SYNOPSIS
+  txt2latex [OPTIONS]... FILE" 
+
+DESCRIPTION
+  txt2latex converts the input text into LaTeX.
+  txt2man is also able to recognize and format sections, paragraphs,
+  lists (standard, numbered, description, nested), literal display blocks.
+  If input file FILE is omitted, standard input is used. 
+  Result is displayed on standard output. 
+
+OPTIONS
+  --version, -v   Display version.
+  --verbose, -V   Increase verbosity.
+  --help, -h      Display help.
+
+SEE ALSO
+  txt2man(1)
