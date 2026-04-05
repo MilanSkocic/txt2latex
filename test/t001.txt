@@ -1,0 +1,21 @@
+INTRODUCTION
+Some text goes here with inline math $\alpha$.
+
+DESCRIPTION
+More detailed description
+
+o item  description
+o item  description
+
+Lists
+- item
+- item
+* item
++ item
+
+-kkk
+  - item with spaces
+
+SEE ALSO
+codata(3)
+

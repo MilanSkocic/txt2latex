@@ -33,6 +33,7 @@ show_man: doc
 test: $(BIN)
 	$(BIN) --version
 	$(BIN) --help
+	make -C test
 
 install: $(BIN)
 	mkdir -p $(PREFIX)/bin

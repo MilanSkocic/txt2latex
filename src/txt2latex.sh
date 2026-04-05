@@ -69,7 +69,48 @@ case $1 in
         exit 0
         ;;
     *)
-        help
-        exit $?
         ;;
 esac
+
+expand $@ | awk '
+BEGIN {
+in_list=0
+}
+# SECTIONS
+/^[[:upper:][:digit:]]+[[:upper:][:space:][:digit:][:punct:]]+$/ {
+    end_itemize(in_list)
+    print "\\section{"$0"}"
+    next
+}
+# LISTS
+/^[[:space:]]*[-*+][[:space:]].+/ {
+    in_list=start_itemize(in_list,"itemize")
+    sub(/[-*+]/,"")
+    print "\\item"$0
+    next
+}
+#
+
+/^$/{
+    in_list=end_itemize(in_list, "itemize")
+}
+{
+    in_list=end_itemize(in_list, "itemize")
+    print $0
+}
+
+function end_itemize(s, env)
+{
+    if ((s+0)==1){
+        print "\\end{"env"}"
+    }
+    return 0
+}
+function start_itemize(s, env)
+{
+    if ((s+0)==0){
+        print "\\begin{"env"}"
+    }
+    return 1
+}
+'
