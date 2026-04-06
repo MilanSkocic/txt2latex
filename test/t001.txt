@@ -1,19 +1,28 @@
-INTRODUCTION
-Some text goes here with inline math $\alpha$.
+SECTIONS
+  Section header starts at column 1 and it must be upper case.
+  Subsection are not supported and not left-aligned (upper case) text will not
+  be interpreted as a header.
+  
+MATH
+  Inline math such as $j=j_0\left(\exp(X)-\exp(-X)\right)$ i supported 
+  or simple equation environment such as 
+                       $$ j=j_0\left(\exp(X)-\exp(-X)\right) $$
+  is also supported.
 
-DESCRIPTION
-More detailed description
+LISTS
+  Three list-like environments are supported: itemize, enumerate and description.
 
-o item  description
-o item  description
+  The description environment is triggered when the line starts with [-*o] followed by a space.
+  o item  description
+  o item  description
 
-Lists
-- item
-- item
-* item
-+ item
+  The itemize environment is triggered when the line starts with [-*o] followed by a space.
+  - item
+  - item
+  * item
+  o item
 
--kkk
+A second list:
   - item with spaces
 
 SEE ALSO

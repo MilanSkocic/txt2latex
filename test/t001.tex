@@ -1,13 +1,30 @@
-\section{INTRODUCTION}
-Some text goes here with inline math $\alpha$.
+\documentclass[10pt,notitlepage]{article}
+\title{Title}
+\author{M. Skocic}
+\begin{document}
+\maketitle
 
-\section{DESCRIPTION}
-More detailed description
+\section{SECTIONS}
+Section header starts at column 1 and it must be upper case.
+Subsection are not supported and not left-aligned (upper case) text will not
+be interpreted as a header.
 
-o item  description
-o item  description
+\section{MATH}
+Inline math such as $j=j_0\left(\exp(X)-\exp(-X)\right)$ i supported 
+or simple equation environment such as 
+$$ j=j_0\left(\exp(X)-\exp(-X)\right) $$
+is also supported.
 
-Lists
+\section{LISTS}
+Three list-like environments are supported: \textit{itemize}, \textit{enumerate} and \textit{\textbf{description}}.
+
+The \textit{\textbf{description}} environment is triggered when the line starts with [-*o] followed by a space.
+\begin{description}
+\item[item] d
+\item[item] d
+\end{description}
+
+The \textit{itemize} environment is triggered when the line starts with [-*o] followed by a space.
 \begin{itemize}
 \item item
 \item item
@@ -15,11 +32,12 @@ Lists
 \item item
 \end{itemize}
 
--kkk
+A second list:
 \begin{itemize}
-\item   item with spaces
+\item item with spaces
 \end{itemize}
 
 \section{SEE ALSO}
 codata(3)
 
+\end{document}

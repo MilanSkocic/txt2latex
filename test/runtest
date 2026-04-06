@@ -1,7 +1,7 @@
 #!/bin/sh
 
 run() {
-	../build/txt2latex $1 > out
+	../build/txt2latex -a "M. Skocic" -d "2026/04" -t "Title" -I "itemize" -I "enumerate" -I "description" -B "description" $1 > out
 	diff -u "${1%.txt}.tex" out
 }
 
