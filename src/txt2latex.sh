@@ -18,7 +18,7 @@ NAME
   $PROGNAME - convert flat ASCII text to LaTeX.
 
 SYNOPSIS
-  $PROGNAME [OPTIONS]... FILE" 
+  $PROGNAME [OPTIONS]... FILE 
 
 DESCRIPTION
   $PROGNAME converts the input text into LaTeX. The conversion procedure
@@ -26,8 +26,37 @@ DESCRIPTION
 
   $PROGNAME is also able to recognize and format sections, paragraphs,
   lists (standard, numbered, description, nested), literal display blocks.
+
   If input file FILE is omitted, standard input is used. 
   Result is displayed on standard output. 
+
+  Here is how text patterns are recognized and processed:
+  Sections    These headers are defined by a line in upper case, starting
+              column 1. If there is one or more leading spaces, a
+              sub-section will be generated instead. Optionally, the
+              Section name can be preceded by a blank line. This is useful
+              for a better visualization of the source text to be used to
+              generate the LaTeX source code.
+  Paragraphs  They must be separated by a blank line, and left aligned.
+              Alternatively two blank spaces can be used to produce the
+              same result. This option will provide a better visualization
+              of the source text to be used to generate the LaTeX source code.
+  Description list
+              The item definition is separated from the item description
+              by at least 2 blank spaces, even before a new line, if
+              definition is too long. Definition will be emphasized
+              by default.
+  Bullet list  
+              Bullet list items are defined by the first word being "-"
+              or "*" or "o".
+  Enumerated list  
+              The first word must be a number followed by a dot.
+  Literal display blocks  
+              This paragraph type is used to display unmodified text,
+              for example source code. It must be separated by a blank
+              line and be indented by a TAB. It is primarily used to format
+              unmodified source code. It will be printed using fixed font
+              using verbatim environment.
 
 OPTIONS
   --version, -v   Display version.
@@ -48,69 +77,118 @@ echo "AUTHOR:       M. Skocic                          "
 echo "LICENSE:      $LICENSE                           "
 }
 
-args=$*
-for i in $args; do
-    case $i in
-        "-V"|"--verbose")
-            FLAG_VERBOSE=1
-            ;;
-        *)
-            ;;
-    esac
+title=
+author=
+date=${date:-$(date +'%d %B %Y')}
+itxt=
+btxt=
+post=cat
+while getopts :d:t:a:I:B:X opt
+do
+	case $opt in
+	(d) date=$OPTARG;;
+	(t) title=$OPTARG;;
+	(a) author=$OPTARG;;
+	(I) itxt="$OPTARG§$itxt";;
+	(B) btxt="$OPTARG§$btxt";;
+    (X) post="pdflatex";;
+	(*) help; exit;;
+	esac
 done
+shift $(($OPTIND - 1))
 
-case $1 in
-    "--help"|"-h")
-        help 
-        exit 0
-        ;;
-    "--version"|"-v")
-        version
-        exit 0
-        ;;
-    *)
-        ;;
-esac
-
-expand $@ | awk '
+expand $@ | 
+awk -v title="$title" -v author="$author" -v date="$date" -v itxt="$itxt" -v btxt="$btxt" '
 BEGIN {
 in_list=0
+in_enum=0
+in_desc=0
+if (title != "") {start_article(title, author, date); start_document()}
 }
+
+END{if (title != "") {end_document()}}
+
 # SECTIONS
 /^[[:upper:][:digit:]]+[[:upper:][:space:][:digit:][:punct:]]+$/ {
-    end_itemize(in_list)
+    in_list=end_list(in_list,"itemize")
+    in_desc=end_list(in_desc,"description")
+    in_enum=end_list(in_enum,"enumerate")
     print "\\section{"$0"}"
     next
 }
-# LISTS
-/^[[:space:]]*[-*+][[:space:]].+/ {
-    in_list=start_itemize(in_list,"itemize")
-    sub(/[-*+]/,"")
-    print "\\item"$0
+
+
+# DESCRIPTIONS
+/[^ ]  +/ {
+    if (match($0, /[^ ]  +/) > 0){
+        in_desc=start_list(in_desc,"description")
+        tag = substr($0, 1, RSTART)
+        desc = substr($0, RSTART+1, RLENGTH) 
+        sub(/[\-\*o]/,"", tag)
+        sub(/^ +/,"", tag)
+        sub(/^ +/,"", desc)
+        print "\\item["tag"] "desc
+    }
     next
 }
-#
 
-/^$/{
-    in_list=end_itemize(in_list, "itemize")
+
+
+# LISTS
+/^[[:space:]]*[\-\*o][[:space:]].+/ {
+    in_list=start_list(in_list,"itemize")
+    sub(/[\-\*o]/,"")
+    sub(/^ +/,"")
+    print "\\item "$0
+    next
 }
+
+
+# ALL
 {
-    in_list=end_itemize(in_list, "itemize")
+	# to avoid some side effects in regexp
+	gsub(/\.\.\./, "\\.\\.\\.")
+	# remove spaces in empty lines
+	sub(/^ +$/,"")
+	sub(/^ +/,"") # Remove leading spaces
+
+    in_list=end_list(in_list,"itemize")
+    in_desc=end_list(in_desc,"description")
+    in_enum=end_list(in_enum,"enumerate")
+    split(itxt, tt, "§")
+		for (i in tt)
+			if (tt[i] != "")
+                sub(tt[i], "\\textit{"tt[i]"}")
+    split(btxt, tt, "§")
+		for (i in tt)
+			if (tt[i] != "")
+                sub(tt[i], "\\textbf{"tt[i]"}")
     print $0
 }
 
-function end_itemize(s, env)
+
+
+
+function end_list(s, env)
 {
     if ((s+0)==1){
         print "\\end{"env"}"
     }
     return 0
 }
-function start_itemize(s, env)
+function start_list(s, env)
 {
     if ((s+0)==0){
         print "\\begin{"env"}"
     }
     return 1
 }
-'
+function start_article(title,author,date) { 
+    print "\\documentclass[10pt,notitlepage]{article}" 
+    print "\\title{"title"}"
+    print "\\author{"author"}"
+    #print "\\date{"date"}"
+}
+function start_document() { print "\\begin{document}\n\\maketitle\n" }
+function end_document() { print "\\end{document}" }
+' | eval $post
