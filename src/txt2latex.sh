@@ -6,6 +6,7 @@ PROGVERSION="0.1"
 SHORTDESCRIPTION="Converts text to LaTeX."
 HOMEPAGE=""
 LICENSE="MIT"
+AUTHOR="M. Skocic"
 MANSECTION="1"
 RED="\e[31m"
 BLACK="\e[0m"
@@ -59,9 +60,14 @@ DESCRIPTION
               using verbatim environment.
 
 OPTIONS
-  --version, -v   Display version.
-  --verbose, -V   Increase verbosity.
-  --help, -h      Display help.
+  -v   Display version.
+  -h      Display help.
+  -d date     Set date. Defaults to current date.
+  -t mytitle  Set the title.
+  -a author   Set the author.
+  -I txt      Italicize txt in output. Can be specified more than once.
+  -B txt      Emphasize (bold) txt in output. Can be specified more than once.
+  -X          Compile output with pdflatex.
 
 SEE ALSO
   txt2man(1)
@@ -73,7 +79,7 @@ version () {
 echo "PROGRAM:      $PROGNAME                          "
 echo "DESCRIPTION:  $SHORTDESCRIPTION                  "
 echo "VERSION:      $PROGVERSION                       "
-echo "AUTHOR:       M. Skocic                          "
+echo "AUTHOR:       $AUTHOR                            "
 echo "LICENSE:      $LICENSE                           "
 }
 
@@ -83,7 +89,9 @@ date=${date:-$(date +'%d %B %Y')}
 itxt=
 btxt=
 post=cat
-while getopts :d:t:a:I:B:X opt
+
+
+while getopts :vhd:t:a:I:B:X opt
 do
 	case $opt in
 	(d) date=$OPTARG;;
@@ -92,10 +100,22 @@ do
 	(I) itxt="$OPTARG§$itxt";;
 	(B) btxt="$OPTARG§$btxt";;
     (X) post="pdflatex";;
-	(*) help; exit;;
+	(h) help; exit;;
+	(v) version; exit;;
+    :) echo "Option -$OPTARG requires an argument"; exit 1;;
+#    \?) echo "Invalid option: -$OPTARG"; exit 1;;
+    *) exit;;
 	esac
 done
 shift $(($OPTIND - 1))
+
+
+if [[ ${#@} == 0 ]];then
+    if [[ -t 0 ]]; then
+        echo "No input from stdin or from file."
+        exit 1;
+    fi
+fi
 
 expand $@ | 
 awk -v title="$title" -v author="$author" -v date="$date" -v itxt="$itxt" -v btxt="$btxt" '
