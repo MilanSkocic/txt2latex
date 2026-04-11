@@ -2,9 +2,13 @@ SECTIONS
   Section header starts at column 1 and it must be upper case.
   Subsection are not supported and not left-aligned (upper case) text will not
   be interpreted as a header.
+
+PARAGRAPHS
+  Paragraphs can be either left-aligned or not. They must be separated
+  by a blank line.
   
 MATH
-  Inline math such as $j=j_0\left(\exp(X)-\exp(-X)\right)$ i supported 
+  Inline math such as $j=j_0\left(\exp(X)-\exp(-X)\right)$ is supported 
   or simple equation environment such as 
                        $$ j=j_0\left(\exp(X)-\exp(-X)\right) $$
   is also supported.
@@ -12,9 +16,19 @@ MATH
 LISTS
   Three list-like environments are supported: itemize, enumerate and description.
 
-  The description environment is triggered when the line starts with [-*o] followed by a space.
+  The description environment is triggered when the line contains 
+  two consecutive spaces. The left part will be the item and right part
+  will be the description.
   o item  description
   o item  description
+  o item  Multiline descriptions are also supported.
+          They can span over multiple lines either indented after the item
+  or indented to the item beginning. 
+
+  The enumerated list is triggered when the line starts with [0-9].
+  followed by a space.
+  1. item 1
+  2. item 2
 
   The itemize environment is triggered when the line starts with [-*o] followed by a space.
   - item
