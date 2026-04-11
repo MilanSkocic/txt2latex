@@ -123,6 +123,7 @@ BEGIN {
 in_list=0
 in_enum=0
 in_desc=0
+is_item=0
 if (title != "") {start_article(title, author, date); start_document()}
 }
 
@@ -143,11 +144,12 @@ END{if (title != "") {end_document()}}
     if (match($0, /[^ ]  +/) > 0){
         in_desc=start_list(in_desc,"description")
         tag = substr($0, 1, RSTART)
-        desc = substr($0, RSTART+1, RLENGTH) 
+        desc = substr($0, RSTART+1)
         sub(/[\-\*o]/,"", tag)
         sub(/^ +/,"", tag)
         sub(/^ +/,"", desc)
         print "\\item["tag"] "desc
+        is_item=1
     }
     next
 }
@@ -160,9 +162,25 @@ END{if (title != "") {end_document()}}
     sub(/[\-\*o]/,"")
     sub(/^ +/,"")
     print "\\item "$0
+    is_item=1
     next
 }
 
+# ENUMERATE
+/^[[:space:]]*[0-9]+\.[[:space:]].+/ {
+    in_enum=start_list(in_enum,"enumerate")
+    sub(/[0-9]+\./,"")
+    sub(/^ +/,"")
+    print "\\item "$0
+    is_item=1
+    next
+}
+
+# multiline items
+/[[:space:]].*/ {
+    print $0
+    next
+}
 
 # ALL
 {
@@ -171,10 +189,11 @@ END{if (title != "") {end_document()}}
 	# remove spaces in empty lines
 	sub(/^ +$/,"")
 	sub(/^ +/,"") # Remove leading spaces
-
+    
     in_list=end_list(in_list,"itemize")
     in_desc=end_list(in_desc,"description")
     in_enum=end_list(in_enum,"enumerate")
+
     split(itxt, tt, "§")
 		for (i in tt)
 			if (tt[i] != "")
@@ -183,6 +202,7 @@ END{if (title != "") {end_document()}}
 		for (i in tt)
 			if (tt[i] != "")
                 sub(tt[i], "\\textbf{"tt[i]"}")
+
     print $0
 }
 
