@@ -19,22 +19,32 @@ LISTS
   The description environment is triggered when the line contains 
   two consecutive spaces. The left part will be the item and right part
   will be the description.
-  o item  description
-  o item  description
-  o item  Multiline descriptions are also supported.
+  o label  description
+  o label  description
+  o label  Multiline descriptions are also supported.
           They can span over multiple lines either indented after the item
   or indented to the item beginning. 
+          The only requirement is to place 2 spaces after the label.
+  o long label  
+      Long labels can be used with the description being written under the
+      label line.
+      
 
   The enumerated list is triggered when the line starts with [0-9].
   followed by a space.
   1. item 1
   2. item 2
+  3) The item can span over multiple lines 
+  no matter what is the indentation across 
+  the lines.
 
   The itemize environment is triggered when the line starts with [-*o] followed by a space.
   - item
   - item
   * item
-  o item
+  o Another item that can span over multiple lines
+      no matter the indentation.
+    txt2latex will map all those lines as part of the item.
 
 A second list:
   - item with spaces
