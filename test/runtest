@@ -1,12 +1,12 @@
 #!/bin/sh
 
 run() {
-	#../build/txt2latex -a "M. Skocic" -d "2026/04" -t "Title" -I "itemize" -I "enumerate" -I "description" -B "description" $1 > out
-	../build/txt2latex $1 > out
-	diff -u "${1%.txt}.tex" out
+	../build/txt2latex $1 > out.tex
+	diff -u "${1%.txt}.tex" out.tex
+	../build/txt2latex -a "Author" -d "YYYY/MM/DD" -t "Title" -I "itemize" -I "enumerate" -I "description" -B "description" $1 > dout.tex
 }
 
-trap "rm -f out" EXIT
+#trap "rm -f out" EXIT
 nerr=0
 
 for t in *.txt; do
