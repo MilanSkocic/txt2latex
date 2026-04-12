@@ -97,8 +97,8 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     --version)
-      args+=("-o" "$2")
-      shift 2
+      args+=("-v")
+      shift
       ;;
     --) # end of options
       shift
