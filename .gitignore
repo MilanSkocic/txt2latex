@@ -1,4 +1,4 @@
 make.in
 build/
-test/dout*
-test/out*
+test/*.txt.tex
+test/*.txt_doc.tex
