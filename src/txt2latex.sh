@@ -33,11 +33,10 @@ DESCRIPTION
 
   Here is how text patterns are recognized and processed:
   Sections    These headers are defined by a line in upper case, starting
-              column 1. If there is one or more leading spaces, a
-              sub-section will be generated instead. Optionally, the
-              Section name can be preceded by a blank line. This is useful
-              for a better visualization of the source text to be used to
-              generate the LaTeX source code.
+              column 1. 
+              Optionnally, the Section name can be preceded by a blank line. 
+              This is useful for a better visualization of the source 
+              text to be used to generate the LaTeX source code.
   Paragraphs  They must be separated by a blank line, and left aligned.
               Alternatively two blank spaces can be used to produce the
               same result. This option will provide a better visualization
@@ -62,7 +61,9 @@ OPTIONS
   -v, --version   Display version.
   -h, --help      Display help.
   -d date         Set date. Defaults to current date.
-  -t mytitle      Set the title.
+  -t mytitle      Set the title. If the title is set, txt2latex will 
+                  automatically add the preambule and tags for the document
+                  beginning and end.
   -a author       Set the author.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
@@ -150,6 +151,7 @@ in_list=0
 in_enum=0
 in_desc=0
 is_item=0
+tag=""
 if (title != "") {start_article(title, author, date); start_document()}
 }
 
@@ -193,9 +195,10 @@ END{if (title != "") {end_document()}}
 }
 
 # ENUMERATE
-/^[[:space:]]*[0-9]+\.[[:space:]].+/ {
+/^[[:space:]]*[0-9]+[\)\.][[:space:]].+/ {
     in_enum=start_list(in_enum,"enumerate")
     sub(/[0-9]+\./,"")
+    sub(/[0-9]+\)/,"")
     sub(/^ +/,"")
     print "\\item "$0
     is_item=1
@@ -204,11 +207,20 @@ END{if (title != "") {end_document()}}
 
 # multiline items
 /[[:space:]].*/ {
-    print $0
-    next
+    if (in_list==1 || in_desc==1 || in_enum==1){
+        sub(/^ +/,"") # Remove leading spaces
+        if (in_desc==1){
+            x=length(tag)+2+5+1
+            printf "%*s%s\n", x, "", $0
+        }else{
+            x=5+1
+            printf "%*s%s\n", x, "", $0
+        }
+        next
+    }
 }
 
-# ALL
+# All other lines which are paragraphs
 {
 	# to avoid some side effects in regexp
 	gsub(/\.\.\./, "\\.\\.\\.")
