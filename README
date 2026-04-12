@@ -16,11 +16,10 @@ DESCRIPTION
 
   Here is how text patterns are recognized and processed:
   Sections    These headers are defined by a line in upper case, starting
-              column 1. If there is one or more leading spaces, a
-              sub-section will be generated instead. Optionally, the
-              Section name can be preceded by a blank line. This is useful
-              for a better visualization of the source text to be used to
-              generate the LaTeX source code.
+              column 1. 
+              Optionnally, the Section name can be preceded by a blank line. 
+              This is useful for a better visualization of the source 
+              text to be used to generate the LaTeX source code.
   Paragraphs  They must be separated by a blank line, and left aligned.
               Alternatively two blank spaces can be used to produce the
               same result. This option will provide a better visualization
@@ -45,7 +44,9 @@ OPTIONS
   -v, --version   Display version.
   -h, --help      Display help.
   -d date         Set date. Defaults to current date.
-  -t mytitle      Set the title.
+  -t mytitle      Set the title. If the title is set, txt2latex will 
+                  automatically add the preambule and tags for the document
+                  beginning and end.
   -a author       Set the author.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
