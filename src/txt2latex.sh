@@ -42,11 +42,10 @@ DESCRIPTION
               Alternatively two blank spaces can be used to produce the
               same result. This option will provide a better visualization
               of the source text to be used to generate the LaTeX source code.
-  Description list
+  Description list  
               The item definition is separated from the item description
               by at least 2 blank spaces, even before a new line, if
-              definition is too long. Definition will be emphasized
-              by default.
+              definition is too long.
   Bullet list  
               Bullet list items are defined by the first word being "-"
               or "*" or "o".
@@ -60,14 +59,14 @@ DESCRIPTION
               using verbatim environment.
 
 OPTIONS
-  -v   Display version.
-  -h      Display help.
-  -d date     Set date. Defaults to current date.
-  -t mytitle  Set the title.
-  -a author   Set the author.
-  -I txt      Italicize txt in output. Can be specified more than once.
-  -B txt      Emphasize (bold) txt in output. Can be specified more than once.
-  -X          Compile output with pdflatex.
+  -v, --version   Display version.
+  -h, --help      Display help.
+  -d date         Set date. Defaults to current date.
+  -t mytitle      Set the title.
+  -a author       Set the author.
+  -I txt          Italicize txt in output. Can be specified more than once.
+  -B txt          Emphasize (bold) txt in output. Can be specified more than once.
+  -X              Compile output with pdflatex.
 
 SEE ALSO
   txt2man(1)
@@ -90,6 +89,33 @@ itxt=
 btxt=
 post=cat
 
+args=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --help)
+      args+=("-h")
+      shift
+      ;;
+    --version)
+      args+=("-o" "$2")
+      shift 2
+      ;;
+    --) # end of options
+      shift
+      break
+      ;;
+    -*)
+      args+=("$1")
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+# Restore positional parameters
+set -- "${args[@]}" "$@"
 
 while getopts :vhd:t:a:I:B:X opt
 do

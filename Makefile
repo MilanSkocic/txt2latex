@@ -33,7 +33,7 @@ show_man: doc
 	
 test: $(BIN)
 	$(BIN) --version
-	$(BIN) --help
+	$(BIN) -h
 	make -C test
 
 install: $(BIN)
