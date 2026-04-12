@@ -1,45 +1,55 @@
 \section{SECTIONS}
-  Section header starts at column 1 and it must be upper case.
-  Subsection are not supported and not left-aligned (upper case) text will not
-  be interpreted as a header.
+Section header starts at column 1 and it must be upper case.
+Subsection are not supported and not left-aligned (upper case) text will not
+be interpreted as a header.
 
 \section{PARAGRAPHS}
-  Paragraphs can be either left-aligned or not. They must be separated
-  by a blank line.
-  
+Paragraphs can be either left-aligned or not. They must be separated
+by a blank line.
+
 \section{MATH}
-  Inline math such as $j=j_0\left(\exp(X)-\exp(-X)\right)$ is supported 
-  or simple equation environment such as 
-                       $$ j=j_0\left(\exp(X)-\exp(-X)\right) $$
-  is also supported.
+Inline math such as $j=j_0\left(\exp(X)-\exp(-X)\right)$ is supported 
+or simple equation environment such as 
+$$ j=j_0\left(\exp(X)-\exp(-X)\right) $$
+is also supported.
 
 \section{LISTS}
-  Three list-like environments are supported: itemize, enumerate and description.
+Three list-like environments are supported: itemize, enumerate and description.
 
-  The description environment is triggered when the line contains 
-  two consecutive spaces. The left part will be the item and right part
-  will be the description.
+The description environment is triggered when the line contains 
+two consecutive spaces. The left part will be the item and right part
+will be the description.
 \begin{description}
-\item[item] description
-\item[item] description
-\item[item] Multiline descriptions are also supported.
-          They can span over multiple lines either indented after the item
-  or indented to the item beginning. 
+\item[label] description
+\item[label] description
+\item[label] Multiline descriptions are also supported.
+             They can span over multiple lines either indented after the item
+             or indented to the item beginning. 
+             The only requirement is to place 2 spaces after the label.
+\item[long label] 
+                  Long labels can be used with the description being written under the
+                  label line.
+                  
 \end{description}
 
-  The enumerated list is triggered when the line starts with [0-9].
-  followed by a space.
+The enumerated list is triggered when the line starts with [0-9].
+followed by a space.
 \begin{enumerate}
 \item item 1
 \item item 2
+\item The item can span over multiple lines 
+      no matter what is the indentation across 
+      the lines.
 \end{enumerate}
 
-  The itemize environment is triggered when the line starts with [-*o] followed by a space.
+The itemize environment is triggered when the line starts with [-*o] followed by a space.
 \begin{itemize}
 \item item
 \item item
 \item item
-\item item
+\item Another item that can span over multiple lines
+      no matter the indentation.
+      txt2latex will map all those lines as part of the item.
 \end{itemize}
 
 A second list:
