@@ -2,4 +2,4 @@ doc/** linguist-documentation
 docs/** linguist-documentation
 man/** linguist-documentation
 test/** linguist-vendored
-Makfile linguist-vendored
+Makefile linguist-vendored
