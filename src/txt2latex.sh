@@ -173,7 +173,7 @@ END{if (title != "") {end_document()}}
         in_desc=start_list(in_desc,"description")
         tag = substr($0, 1, RSTART)
         desc = substr($0, RSTART+1)
-        sub(/[\-\*o]/,"", tag)
+        # sub(/[\-\*o]/,"", tag)
         sub(/^ +/,"", tag)
         sub(/^ +/,"", desc)
         print "\\item["tag"] "desc
@@ -223,7 +223,7 @@ END{if (title != "") {end_document()}}
 # All other lines which are paragraphs
 {
 	# to avoid some side effects in regexp
-	gsub(/\.\.\./, "\\.\\.\\.")
+	#gsub(/\.\.\./, "\\.\\.\\.")
 	# remove spaces in empty lines
 	sub(/^ +$/,"")
 	sub(/^ +/,"") # Remove leading spaces
