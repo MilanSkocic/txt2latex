@@ -1,3 +1,4 @@
 make.in
 build/
 test/dout*
+test/out*
