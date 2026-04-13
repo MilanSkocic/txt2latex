@@ -150,19 +150,41 @@ BEGIN {
 in_list=0
 in_enum=0
 in_desc=0
+in_verb=0
 is_item=0
 tag=""
+pbl=0         # previous blank line
 if (title != "") {start_article(title, author, date); start_document()}
 }
 
 END{if (title != "") {end_document()}}
 
-# SECTIONS
-/^[[:upper:][:digit:]]+[[:upper:][:space:][:digit:][:punct:]]+$/ {
+# CHECK IF BLANK LINE
+NF == 0 {
+    pbl=1 
+
     in_list=end_list(in_list,"itemize")
     in_desc=end_list(in_desc,"description")
     in_enum=end_list(in_enum,"enumerate")
+    
+    print $0
+
+    next
+}
+
+# SECTIONS
+/^[[:upper:][:digit:]]+[[:upper:][:space:][:digit:][:punct:]]+$/ {
+    
+    in_list=end_list(in_list,"itemize")
+    in_desc=end_list(in_desc,"description")
+    in_enum=end_list(in_enum,"enumerate")
+
+	ls = 0		# line start index
+	pls = 0		# previous line start index
+	pnzls = 0	# previous non zero line start index
+    
     print "\\section{"$0"}"
+
     next
 }
 
@@ -181,8 +203,6 @@ END{if (title != "") {end_document()}}
     }
     next
 }
-
-
 
 # LISTS
 /^[[:space:]]*[\-\*o][[:space:]].+/ {
@@ -222,15 +242,25 @@ END{if (title != "") {end_document()}}
 
 # All other lines which are paragraphs
 {
-	# to avoid some side effects in regexp
-	#gsub(/\.\.\./, "\\.\\.\\.")
-	# remove spaces in empty lines
-	sub(/^ +$/,"")
+    sub(/^ +$/,"") # remove spaces in empty lines
 	sub(/^ +/,"") # Remove leading spaces
-    
+
+    pls = ls
+    match($0, /[^ ]/)
+    ls = RSTART
+    if (ls != 0) { pnzls = ls }
+
     in_list=end_list(in_list,"itemize")
     in_desc=end_list(in_desc,"description")
     in_enum=end_list(in_enum,"enumerate")
+
+    if (pbl == 1 && pnzls > 0 && ls > pnzls) {
+        in_verb=start_list(in_verb, "verbatim")
+    }
+    
+    if (in_verb == 1 && ls < pnzls) {
+        end_list(in_verb, "verbatim")
+    }
 
     split(itxt, tt, "§")
 		for (i in tt)
@@ -242,6 +272,7 @@ END{if (title != "") {end_document()}}
                 sub(tt[i], "\\textbf{"tt[i]"}")
 
     print $0
+    pbl=0
 }
 
 
