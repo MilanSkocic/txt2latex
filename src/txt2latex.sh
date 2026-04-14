@@ -154,6 +154,9 @@ in_verb=0
 is_item=0
 tag=""
 pbl=0         # previous blank line
+ls = 0		# line start index
+pls = 0		# previous line start index
+pnzls = 0	# previous non zero line start index
 if (title != "") {start_article(title, author, date); start_document()}
 }
 
@@ -161,11 +164,13 @@ END{if (title != "") {end_document()}}
 
 # CHECK IF BLANK LINE
 NF == 0 {
+    cind()
     pbl=1 
-
+    
     in_list=end_list(in_list,"itemize")
     in_desc=end_list(in_desc,"description")
     in_enum=end_list(in_enum,"enumerate")
+    in_verb=end_list(in_verb, "verbatim")
     
     print $0
 
@@ -174,15 +179,14 @@ NF == 0 {
 
 # SECTIONS
 /^[[:upper:][:digit:]]+[[:upper:][:space:][:digit:][:punct:]]+$/ {
-    
     in_list=end_list(in_list,"itemize")
     in_desc=end_list(in_desc,"description")
     in_enum=end_list(in_enum,"enumerate")
 
-	ls = 0		# line start index
-	pls = 0		# previous line start index
-	pnzls = 0	# previous non zero line start index
-    
+    ls = 0		# line start index
+    pls = 0		# previous line start index
+    pnzls = 0	# previous non zero line start index
+
     print "\\section{"$0"}"
 
     next
@@ -228,6 +232,7 @@ NF == 0 {
 # multiline items
 /[[:space:]].*/ {
     if (in_list==1 || in_desc==1 || in_enum==1){
+        cind()
         sub(/^ +/,"") # Remove leading spaces
         if (in_desc==1){
             x=length(tag)+2+5+1
@@ -242,25 +247,7 @@ NF == 0 {
 
 # All other lines which are paragraphs
 {
-    sub(/^ +$/,"") # remove spaces in empty lines
-	sub(/^ +/,"") # Remove leading spaces
-
-    pls = ls
-    match($0, /[^ ]/)
-    ls = RSTART
-    if (ls != 0) { pnzls = ls }
-
-    in_list=end_list(in_list,"itemize")
-    in_desc=end_list(in_desc,"description")
-    in_enum=end_list(in_enum,"enumerate")
-
-    if (pbl == 1 && pnzls > 0 && ls > pnzls) {
-        in_verb=start_list(in_verb, "verbatim")
-    }
-    
-    if (in_verb == 1 && ls < pnzls) {
-        end_list(in_verb, "verbatim")
-    }
+    cind()
 
     split(itxt, tt, "§")
 		for (i in tt)
@@ -271,11 +258,31 @@ NF == 0 {
 			if (tt[i] != "")
                 sub(tt[i], "\\textbf{"tt[i]"}")
 
+    sub(/^ +$/,"") # remove spaces in empty lines
+	sub(/^ +/,"") # Remove leading spaces
+    
+    in_list=end_list(in_list,"itemize")
+    in_desc=end_list(in_desc,"description")
+    in_enum=end_list(in_enum,"enumerate")
+    
+    if (pbl == 1 && pls==0 && pnzls > 0 && ls > pnzls) {
+        in_verb=start_list(in_verb, "verbatim")
+    }
+
+    if (in_verb == 1 && ls < pnzls) {
+        end_list(in_verb, "verbatim")
+        pbl=0
+    }
+
     print $0
-    pbl=0
 }
 
-
+function cind(){
+    pls = ls
+    if (ls != 0) { pnzls = ls }
+    match($0, /[^ ]/)
+    ls = RSTART
+}
 
 
 function end_list(s, env)
