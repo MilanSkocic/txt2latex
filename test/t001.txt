@@ -49,6 +49,15 @@ LISTS
 A second list:
   - item with spaces
 
+EXAMPLE
+ Verbatim text can be added by adding indented text preceded by a blank line.
+
+   program main
+   implicit none
+   real ::x
+   x=1
+   end program
+
 SEE ALSO
 codata(3)
 
