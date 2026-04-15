@@ -48,6 +48,8 @@ OPTIONS
                   automatically add the preambule and tags for the document
                   beginning and end.
   -a author       Set the author.
+  -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
+                  Defaults to 0.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
   -X              Compile output with pdflatex.

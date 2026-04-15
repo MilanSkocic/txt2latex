@@ -65,6 +65,8 @@ OPTIONS
                   automatically add the preambule and tags for the document
                   beginning and end.
   -a author       Set the author.
+  -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
+                  Defaults to 0.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
   -X              Compile output with pdflatex.
@@ -89,6 +91,7 @@ date=${date:-$(date +'%d %B %Y')}
 itxt=
 btxt=
 post=cat
+shiftsec=0
 
 args=()
 while [[ $# -gt 0 ]]; do
@@ -124,6 +127,7 @@ do
 	(d) date=$OPTARG;;
 	(t) title=$OPTARG;;
 	(a) author=$OPTARG;;
+    (s) shiftsec=$OPTARG;;
 	(I) itxt="$OPTARG§$itxt";;
 	(B) btxt="$OPTARG§$btxt";;
     (X) post="pdflatex";;
@@ -145,18 +149,26 @@ if [[ ${#@} == 0 ]];then
 fi
 
 expand $@ | 
-awk -v title="$title" -v author="$author" -v date="$date" -v itxt="$itxt" -v btxt="$btxt" '
+awk -v title="$title" -v author="$author" -v date="$date" \
+ -v itxt="$itxt" \
+ -v btxt="$btxt" \
+ -v shiftsec=$shiftsec '
 BEGIN {
 in_list=0
 in_enum=0
 in_desc=0
 in_verb=0
 is_item=0
+
 tag=""
+
 pbl=0         # previous blank line
 ls = 0		# line start index
 pls = 0		# previous line start index
 pnzls = 0	# previous non zero line start index
+
+shift=0
+
 if (title != "") {start_article(title, author, date); start_document()}
 }
 
@@ -186,9 +198,14 @@ NF == 0 {
     ls = 0		# line start index
     pls = 0		# previous line start index
     pnzls = 0	# previous non zero line start index
-
-    print "\\section{"$0"}"
-
+    
+    if (shiftsec == 1) {
+        print "\\subsection{"$0"}"
+    }else if (shiftsec == 2){
+        print "\\subsubsection{"$0"}"
+    }else{
+        print "\\section{"$0"}"
+    }
     next
 }
 
