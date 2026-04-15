@@ -49,7 +49,7 @@ DESCRIPTION
               Bullet list items are defined by the first word being "-"
               or "*" or "o".
   Enumerated list  
-              The first word must be a number followed by a dot.
+              The first word must be a number followed by a dot or a round bracket.
   Literal display blocks  
               This paragraph type is used to display unmodified text,
               for example source code. It must be separated by a blank

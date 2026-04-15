@@ -1,14 +1,14 @@
 A makefile is provided for installing the script and its man page.
 
-$ make 
-$ make install
+    $ make 
+    $ make install
 
-The script is installed in PREFIX/bin/ and the man page is 
-installed in `$PREFIX/share/man/man1/`.
-By default `PREFIX=$(HOME)/.local`
+The script is installed in prefix/bin/ and the man page is 
+installed in `$prefix/share/man/man1/`.
+By default `prefix=$(HOME)/.local`.
 
-You can change the installation path by settings PREFIX as shown in the example
+You can change the installation path by settings prefix as shown in the example
 below where the installation will be system-wide.
 
-$ make
-$ make install PREFIX=/usr/local
+    $ make
+    $ make install prefix=/usr/local
