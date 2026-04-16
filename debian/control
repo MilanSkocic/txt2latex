@@ -1,0 +1,25 @@
+Source: txt2latex
+Section: misc
+Priority: optional
+Maintainer: Milan Skocic <milan.skocic@gmail.com>
+Build-Depends:
+ debhelper-compat (= 13), awk
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+Homepage: https://github.com/MilanSkocic/txt2latex
+
+Package: txt2latex
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}, awk
+Suggests: texlive
+Description: convert flat ASCII text to LaTeX.
+ txt2latex converts the input text into LaTeX. The conversion procedure
+ is strongly inspired by txt2man.
+ .
+ txt2latex is also able to recognize and format sections, paragraphs,
+ lists (standard, numbered, description, nested), literal display blocks.
+ .
+ If input file FILE is omitted, standard input is used. 
+ Result is displayed on standard output. 
+

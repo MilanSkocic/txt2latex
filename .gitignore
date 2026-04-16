@@ -2,3 +2,10 @@ make.in
 build/
 test/*.txt.tex
 test/*.txt_doc.tex
+
+debian/*
+!debian/changelog
+!debian/control
+!debian/copyright
+!debian/rules
+
