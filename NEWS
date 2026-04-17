@@ -1,0 +1,8 @@
+VERSION 0.1
+Implementation of text pattern recognition based on txt2man:
+- sections
+- paragraphs
+- Description
+- Bullet lists
+- Enumerated lists
+- Literal display blocks
