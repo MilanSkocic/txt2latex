@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # DEFINE
-PROGNAME="$APP_NAME"
+PROGNAME="txt2latex"
 PROGVERSION="0.1"
 SHORTDESCRIPTION="Converts text to LaTeX."
 HOMEPAGE=""
