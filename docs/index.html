@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Thu Apr 16 06:03:22 2026 -->
+<!-- CreationDate: Mon Apr 20 05:36:32 2026 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,32 +34,28 @@
 </h2>
 
 
-
-<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
-- convert flat ASCII text to LaTeX.</p>
+<p style="margin-left:9%; margin-top: 1em"><b>- convert
+flat ASCII text to LaTeX.</b></p>
 
 <h2>SYNOPSIS
 <a name="SYNOPSIS"></a>
 </h2>
 
 
-
-<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
-[OPTIONS]... <i>FILE</i></p>
+<p style="margin-left:9%; margin-top: 1em">[OPTIONS]...
+<i>FILE</i></p>
 
 <h2>DESCRIPTION
 <a name="DESCRIPTION"></a>
 </h2>
 
 
+<p style="margin-left:9%; margin-top: 1em">converts the
+input text into LaTeX. The conversion procedure is strongly
+inspired by txt2man.</p>
 
-<p style="margin-left:9%; margin-top: 1em"><i><b>txt2latex</b></i>
-converts the input text into LaTeX. The conversion procedure
-is strongly inspired by txt2man.</p>
-
-
-<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
-is also able to recognize and format sections, paragraphs,
+<p style="margin-left:9%; margin-top: 1em">is also able to
+recognize and format sections, paragraphs, <br>
 lists (standard, numbered, description, nested), literal
 display blocks.</p>
 
@@ -67,46 +63,46 @@ display blocks.</p>
 <i>FILE</i> is omitted, standard input is used. Result is
 displayed on standard output.</p>
 
-<p style="margin-left:9%; margin-top: 1em">Here is how text
-patterns are recognized and processed: <b><br>
+<p style="margin-left:18%; margin-top: 1em">Here is how
+text patterns are recognized and processed: <b><br>
 Sections</b></p>
 
-<p style="margin-left:18%;">These headers are defined by a
+<p style="margin-left:27%;">These headers are defined by a
 line in upper case, starting column 1. Optionnally, the
 Section name can be preceded by a blank line. This is useful
 for a better visualization of the source text to be used to
 generate the LaTeX source code.</p>
 
-<p style="margin-left:9%;"><b>Paragraphs</b></p>
+<p style="margin-left:18%;"><b>Paragraphs</b></p>
 
-<p style="margin-left:18%;">They must be separated by a
+<p style="margin-left:27%;">They must be separated by a
 blank line, and left aligned. Alternatively two blank spaces
 can be used to produce the same result. This option will
 provide a better visualization of the source text to be used
 to generate the LaTeX source code.</p>
 
-<p style="margin-left:9%;"><b>Description list</b></p>
+<p style="margin-left:18%;"><b>Description list</b></p>
 
-<p style="margin-left:18%;">The item definition is
+<p style="margin-left:27%;">The item definition is
 separated from the item description by at least 2 blank
 spaces, even before a new line, if definition is too
 long.</p>
 
-<p style="margin-left:9%;"><b>Bullet list</b></p>
+<p style="margin-left:18%;"><b>Bullet list</b></p>
 
-<p style="margin-left:18%;">Bullet list items are defined
+<p style="margin-left:27%;">Bullet list items are defined
 by the first word being &quot;-&quot; or &quot;*&quot; or
 &quot;o&quot;.</p>
 
-<p style="margin-left:9%;"><b>Enumerated list</b></p>
+<p style="margin-left:18%;"><b>Enumerated list</b></p>
 
-<p style="margin-left:18%;">The first word must be a number
+<p style="margin-left:27%;">The first word must be a number
 followed by a dot or a round bracket.</p>
 
-<p style="margin-left:9%;"><b>Literal display
+<p style="margin-left:18%;"><b>Literal display
 blocks</b></p>
 
-<p style="margin-left:18%;">This paragraph type is used to
+<p style="margin-left:27%;">This paragraph type is used to
 display unmodified text, for example source code. It must be
 separated by a blank line and be indented by a TAB. It is
 primarily used to format unmodified source code. It will be
@@ -134,8 +130,8 @@ date.</p>
 <p style="margin-left:9%;"><b>-t mytitle</b></p>
 
 <p style="margin-left:18%;">Set the title. If the title is
-set, <b>txt2latex</b> will automatically add the preambule
-and tags for the document beginning and end.</p>
+set, txt2latex will automatically add the preambule and tags
+for the document</p>
 
 <p style="margin-left:9%;"><b>-a author</b></p>
 

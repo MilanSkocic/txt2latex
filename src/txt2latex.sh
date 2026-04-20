@@ -63,7 +63,6 @@ OPTIONS
   -d date         Set date. Defaults to current date.
   -t mytitle      Set the title. If the title is set, txt2latex will 
                   automatically add the preambule and tags for the document
-                  beginning and end.
   -a author       Set the author.
   -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
                   Defaults to 0.

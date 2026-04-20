@@ -1,14 +1,14 @@
 NAME
-  txt2latex - convert flat ASCII text to LaTeX.
+   - convert flat ASCII text to LaTeX.
 
 SYNOPSIS
-  txt2latex [OPTIONS]... FILE 
+   [OPTIONS]... FILE 
 
 DESCRIPTION
-  txt2latex converts the input text into LaTeX. The conversion procedure
+   converts the input text into LaTeX. The conversion procedure
   is strongly inspired by txt2man.
 
-  txt2latex is also able to recognize and format sections, paragraphs,
+   is also able to recognize and format sections, paragraphs,
   lists (standard, numbered, description, nested), literal display blocks.
 
   If input file FILE is omitted, standard input is used. 
@@ -46,7 +46,6 @@ OPTIONS
   -d date         Set date. Defaults to current date.
   -t mytitle      Set the title. If the title is set, txt2latex will 
                   automatically add the preambule and tags for the document
-                  beginning and end.
   -a author       Set the author.
   -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
                   Defaults to 0.
