@@ -1,5 +1,6 @@
 A Makefile is provided for installing the script and its man page.
 
+    $ ./configure 
     $ make 
     $ make install
 
