@@ -2,9 +2,9 @@
 
 # DEFINE
 PROGNAME="txt2latex"
-PROGVERSION="0.1"
+PROGVERSION="0.1.2"
 SHORTDESCRIPTION="Converts text to LaTeX."
-HOMEPAGE=""
+HOMEPAGE="https://github.com/MilanSkocic/txt2latex"
 LICENSE="MIT"
 AUTHOR="M. Skocic"
 MANSECTION="1"
@@ -173,6 +173,9 @@ if (title != "") {start_article(title, author, date); start_document()}
 
 END{if (title != "") {end_document()}}
 
+/.*[$%&].*/ {
+}
+
 # CHECK IF BLANK LINE
 NF == 0 {
     cind()
@@ -283,6 +286,12 @@ NF == 0 {
     
     if (pbl == 1 && pls==0 && pnzls > 0 && ls > pnzls) {
         in_verb=start_list(in_verb, "verbatim")
+    }
+
+    if (in_verb == 0){
+        gsub(/\$/,"\\$")
+        gsub(/%/,"\\%")
+        gsub("&","\\\\&")
     }
 
     if (in_verb == 1 && ls < pnzls) {
