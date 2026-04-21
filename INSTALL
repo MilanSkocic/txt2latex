@@ -1,4 +1,4 @@
-A makefile is provided for installing the script and its man page.
+A Makefile is provided for installing the script and its man page.
 
     $ make 
     $ make install
@@ -10,4 +10,4 @@ By default prefix=$HOME/.local.
     $ make
     $ make install prefix=/usr/local
 
-
+A debian package is also available: https://github.com/MilanSkocic/txt2latex/releases.
