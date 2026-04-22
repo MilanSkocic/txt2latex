@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Tue Apr 21 21:34:39 2026 -->
+<!-- CreationDate: Wed Apr 22 06:12:20 2026 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,6 +24,7 @@
 <a href="#SYNOPSIS">SYNOPSIS</a><br>
 <a href="#DESCRIPTION">DESCRIPTION</a><br>
 <a href="#OPTIONS">OPTIONS</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
 <a href="#SEE ALSO">SEE ALSO</a><br>
 
 <hr>
@@ -185,6 +186,24 @@ than once.</p></td></tr>
 
 <p>Compile output with pdflatex.</p></td></tr>
 </table>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:9%; margin-top: 1em">Simple
+conversion</p>
+
+<p style="margin-left:9%; margin-top: 1em">$ txt2latex FILE
+&gt; FILE.tex</p>
+
+<p style="margin-left:9%; margin-top: 1em">Conversion with
+document title</p>
+
+<p style="margin-left:9%; margin-top: 1em">$ txt2latex -t
+&quot;title&quot; -a &quot;author&quot; -I &quot;word&quot;
+FILE &gt; FILE.tex</p>
 
 <h2>SEE ALSO
 <a name="SEE ALSO"></a>
