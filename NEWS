@@ -1,3 +1,10 @@
+VERSION 0.1.3
+- Add option -P for adding custom packages or commands in the preambule.
+- Fix documentation glitches in the help text.
+- Add examples in the help text.
+
+
+
 VERSION 0.1.2
 - Add protection of special characters $, % and & except in block display.
 
