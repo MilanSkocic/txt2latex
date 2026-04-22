@@ -70,6 +70,15 @@ OPTIONS
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
   -X              Compile output with pdflatex.
 
+EXAMPLES
+  Simple conversion
+
+        $ $PROGNAME FILE > FILE.tex
+  
+  Conversion with document title
+
+        $ $PROGNAME -t "title" -a "author" -I "word" FILE > FILE.tex
+
 SEE ALSO
   txt2man(1)
 EOT
