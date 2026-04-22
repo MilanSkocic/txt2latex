@@ -2,7 +2,7 @@
 
 # DEFINE
 PROGNAME="txt2latex"
-PROGVERSION="0.1.2"
+PROGVERSION="0.1.3"
 SHORTDESCRIPTION="Converts text to LaTeX."
 HOMEPAGE="https://github.com/MilanSkocic/txt2latex"
 LICENSE="MIT"
