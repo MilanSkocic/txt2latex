@@ -2,7 +2,7 @@ NAME
   txt2latex - convert flat ASCII text to LaTeX.
 
 SYNOPSIS
-  txt2latex [OPTIONS]... FILE 
+  txt2latex [OPTION...] FILE 
 
 DESCRIPTION
   txt2latex converts the input text into LaTeX. The conversion procedure
@@ -51,6 +51,8 @@ OPTIONS
                   Defaults to 0.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
+  -P package      Add packages or LateX commands in the preambule.
+                  LateX commands must be doubled escaoed e.g. \\usepackage{ccfonts}.
   -X              Compile output with pdflatex.
 
 EXAMPLES
@@ -61,6 +63,10 @@ EXAMPLES
   Conversion with document title
 
         $ txt2latex -t "title" -a "author" -I "word" FILE > FILE.tex
+
+  Conversion with custom packages and direct rendering with pdflatex
+
+        $ txt2latex -t "title" -a "author" -I "word" -P "\\usepackage{ccfonts}" -X FILE
 
 SEE ALSO
   txt2man(1)
