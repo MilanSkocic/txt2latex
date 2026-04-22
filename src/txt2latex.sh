@@ -19,7 +19,7 @@ NAME
   $PROGNAME - convert flat ASCII text to LaTeX.
 
 SYNOPSIS
-  $PROGNAME [OPTIONS]... FILE 
+  $PROGNAME [OPTION...] FILE 
 
 DESCRIPTION
   $PROGNAME converts the input text into LaTeX. The conversion procedure
@@ -68,6 +68,8 @@ OPTIONS
                   Defaults to 0.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
+  -P package      Add packages or LateX commands in the preambule.
+                  LateX commands must be doubled escaoed e.g. \\\\usepackage{ccfonts}.
   -X              Compile output with pdflatex.
 
 EXAMPLES
@@ -78,6 +80,10 @@ EXAMPLES
   Conversion with document title
 
         $ $PROGNAME -t "title" -a "author" -I "word" FILE > FILE.tex
+
+  Conversion with custom packages and direct rendering with pdflatex
+
+        $ $PROGNAME -t "title" -a "author" -I "word" -P "\\\\usepackage{ccfonts}" -X FILE
 
 SEE ALSO
   txt2man(1)
@@ -129,7 +135,7 @@ done
 # Restore positional parameters
 set -- "${args[@]}" "$@"
 
-while getopts :vhd:t:a:I:B:X opt
+while getopts :vhd:t:a:I:B:P:X opt
 do
 	case $opt in
 	(d) date=$OPTARG;;
@@ -138,6 +144,7 @@ do
     (s) shiftsec=$OPTARG;;
 	(I) itxt="$OPTARG§$itxt";;
 	(B) btxt="$OPTARG§$btxt";;
+	(P) ptxt="$OPTARG§$ptxt";;
     (X) post="pdflatex";;
 	(h) help; exit;;
 	(v) version; exit;;
@@ -160,6 +167,7 @@ expand $@ |
 awk -v title="$title" -v author="$author" -v date="$date" \
  -v itxt="$itxt" \
  -v btxt="$btxt" \
+ -v ptxt="$ptxt" \
  -v shiftsec=$shiftsec '
 BEGIN {
 in_list=0
@@ -177,13 +185,13 @@ pnzls = 0	# previous non zero line start index
 
 shift=0
 
-if (title != "") {start_article(title, author, date); start_document()}
+if (title != "") {
+    start_article(title, author, date); 
+    start_document()
+}
 }
 
 END{if (title != "") {end_document()}}
-
-/.*[$%&].*/ {
-}
 
 # CHECK IF BLANK LINE
 NF == 0 {
@@ -277,15 +285,6 @@ NF == 0 {
 {
     cind()
 
-    split(itxt, tt, "§")
-		for (i in tt)
-			if (tt[i] != "")
-                sub(tt[i], "\\textit{"tt[i]"}")
-    split(btxt, tt, "§")
-		for (i in tt)
-			if (tt[i] != "")
-                sub(tt[i], "\\textbf{"tt[i]"}")
-
     sub(/^ +$/,"") # remove spaces in empty lines
 	sub(/^ +/,"") # Remove leading spaces
     
@@ -301,6 +300,15 @@ NF == 0 {
         gsub(/\$/,"\\$")
         gsub(/%/,"\\%")
         gsub("&","\\\\&")
+
+        split(itxt, tt, "§")
+            for (i in tt)
+                if (tt[i] != "")
+                    sub(tt[i], "\\textit{"tt[i]"}")
+        split(btxt, tt, "§")
+            for (i in tt)
+                if (tt[i] != "")
+                    sub(tt[i], "\\textbf{"tt[i]"}")
     }
 
     if (in_verb == 1 && ls < pnzls) {
@@ -335,6 +343,10 @@ function start_list(s, env)
 }
 function start_article(title,author,date) { 
     print "\\documentclass[10pt,notitlepage]{article}" 
+    split(ptxt, tt, "§")
+        for (i in tt)
+            if (tt[i] != "")
+                print tt[i]
     print "\\title{"title"}"
     print "\\author{"author"}"
     #print "\\date{"date"}"
