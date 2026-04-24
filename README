@@ -39,6 +39,9 @@ DESCRIPTION
               line and be indented by a TAB. It is primarily used to format
               unmodified source code. It will be printed using fixed font
               using verbatim environment.
+  Mathematics  
+              Inline mathematics must be enclosed with \( \) whereas 
+              equations must be enclosed with \[ \].
 
 OPTIONS
   -v, --version   Display version.
