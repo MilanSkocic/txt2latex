@@ -40,8 +40,9 @@ DESCRIPTION
               unmodified source code. It will be printed using fixed font
               using verbatim environment.
   Mathematics  
-              Inline mathematics must be enclosed with \( \) whereas 
-              equations must be enclosed with \[ \].
+              Inline mathematics must be enclosed with round brackets 
+              and equations must be enclosed with squared brackets.
+              Brackets must be escaped with a blackslash.
 
 OPTIONS
   -v, --version   Display version.
