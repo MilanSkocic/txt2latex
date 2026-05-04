@@ -7,7 +7,7 @@ PARAGRAPHS
   Paragraphs can be either left-aligned or not. They must be separated
   by a blank line.
 
-  Special characters $, %, & are protected.
+  Special characters $, %, &, _ are protected.
   
 MATH
   Inline math such as \(j=j_0\left(\exp(X)-\exp(-X)\right)\) is supported 
