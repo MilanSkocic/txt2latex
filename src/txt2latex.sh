@@ -2,7 +2,7 @@
 
 # DEFINE
 PROGNAME="txt2latex"
-PROGVERSION="0.1.4"
+PROGVERSION="0.1.5"
 SHORTDESCRIPTION="Converts text to LaTeX."
 HOMEPAGE="https://github.com/MilanSkocic/txt2latex"
 LICENSE="MIT"
@@ -315,6 +315,10 @@ NF == 0 {
             for (i in tt)
                 if (tt[i] != "")
                     sub(tt[i], "\\textbf{"tt[i]"}")
+        
+        hmm()
+    }else{
+        print $0 
     }
 
     if (in_verb == 1 && ls < pnzls) {
@@ -322,7 +326,6 @@ NF == 0 {
         pbl=0
     }
 
-    print $0
 }
 
 function cind(){
@@ -356,6 +359,53 @@ function start_article(title,author,date) {
     print "\\title{"title"}"
     print "\\author{"author"}"
     #print "\\date{"date"}"
+}
+function hmm() {
+  # handle underscore in math mode or normal mode.
+  out = ""
+  i = 1
+
+  while (i <= length($0)) {
+    c  = substr($0, i, 1)
+    c2 = substr($0, i, 2)
+
+    # Detect entering/exiting math modes
+    if (c2 == "\\(") {
+      mode = "\\("
+      out = out c2
+      i += 2
+      continue
+    }
+    if (c2 == "\\)") {
+      mode = ""
+      out = out c2
+      i += 2
+      continue
+    }
+    if (c2 == "\\[") {
+      mode = "\\["
+      out = out c2
+      i += 2
+      continue
+    }
+    if (c2 == "\\]") {
+      mode = ""
+      out = out c2
+      i += 2
+      continue
+    }
+
+    # Replace underscore only outside math
+    if (c == "_" && mode == "") {
+      out = out "\\_"
+    } else {
+      out = out c
+    }
+
+    i++
+  }
+
+  print out
 }
 function start_document() { print "\\begin{document}\n\\maketitle\n" }
 function end_document() { print "\\end{document}" }
