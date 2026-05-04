@@ -10,7 +10,7 @@ PARAGRAPHS
   Special characters $, %, &, _ are protected.
   
 MATH
-  Inline math such as \(j=j_0\left(\exp(X)-\exp(-X)\right)\) is supported 
+  Inline math \(\alpha _{ox}\) such as \(j=j_0\left(\exp(X)-\exp(-X)\right)\) is supported 
   or simple equation environment such as 
                        \[ j=j_0\left(\exp(X)-\exp(-X)\right) \]
   is also supported.
