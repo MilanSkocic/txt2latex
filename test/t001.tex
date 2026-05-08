@@ -8,12 +8,13 @@ be interpreted as a header.
 Paragraphs can be either left-aligned or not. They must be separated
 by a blank line.
 
-Special characters \$, \%, \&, \_ are protected.
-  
+Special characters \#, \$, \%, \&, \_, \{, \}, \^\, \textbackslash\ are protected i.e. escaped.
+
 \section{MATH}
-Inline math \(\alpha _{ox}\) such as \(j=j_0\left(\exp(X)-\exp(-X)\right)\) is supported 
-or simple equation environment such as 
-\[ j=j_0\left(\exp(X)-\exp(-X)\right) \]
+Inline math such as $j_{corr}^{25}$, $\alpha _{ox}$, $\alpha_{red}$ is supported even special characters \#, \$, \%, \&, \_, \{, \}, \^\, \textbackslash\
+or simple equation environment such as
+$$ j=j_{0}\left(\exp(X)-\exp(-X)\right) $$
+$$ j = j_a +j_c $$
 is also supported.
 
 \section{LISTS}
@@ -23,7 +24,7 @@ The description environment is triggered when the line contains
 two consecutive spaces. The left part will be the item and right part
 will be the description.
 \begin{description}
-\item[o label] description
+\item[o label] description with inline math $\Omega ^2$ and special characters \_, \%
 \item[o label] description
 \item[o label] Multiline descriptions are also supported.
                They can span over multiple lines either indented after the item
@@ -32,8 +33,8 @@ will be the description.
 \item[o long label] 
                     Long labels can be used with the description being written under the
                     label line.
+\item[label] the label can also be a simple word.
 \end{description}
-      
 
 The enumerated list is triggered when the line starts with [0-9].
 followed by a space.
@@ -74,6 +75,7 @@ end program
 \begin{verbatim}
 $ ls -al ./
 $ which txt2latex
+$ txt2latex -h
 \end{verbatim}
 
 \section{SEE ALSO}
