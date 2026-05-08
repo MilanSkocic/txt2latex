@@ -1,3 +1,9 @@
+VERSION 0.1.6
+-Handle inline math and special characters even if present in the same line.
+-Handle math equations $$...$$ i.e. treated as pure LaTeX.
+
+
+
 VERSION 0.1.5
 -Add handling of math mode with underscore being a special character.
 
