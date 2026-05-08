@@ -2,7 +2,7 @@
 
 # DEFINE
 PROGNAME="txt2latex"
-PROGVERSION="0.1.5"
+PROGVERSION="0.1.6"
 SHORTDESCRIPTION="Converts text to LaTeX."
 HOMEPAGE="https://github.com/MilanSkocic/txt2latex"
 LICENSE="MIT"
@@ -178,6 +178,7 @@ in_list=0
 in_enum=0
 in_desc=0
 in_verb=0
+in_math=0
 is_item=0
 
 tag=""
@@ -212,6 +213,35 @@ NF == 0 {
     print $0
 
     next
+}
+
+# INLINE MATH
+/.*\\\(.*\\\).*/ {
+    gsub(/\\\(/,"\$", $0)
+    gsub(/\\\)/,"\$", $0)
+}
+
+# MATH ENV
+/.*\\\[.*\\\].*/ {
+    gsub(/\\\[/,"\$\$", $0)
+    gsub(/\\\]/,"\$\$", $0)
+}
+
+# MATH: do not replace anything if in math mode.
+/[[:space:]].*\$\$.*\$\$/ {
+    sub(/^ +$/,"", $0) # remove spaces in empty lines
+	sub(/^ +/,"", $0) # Remove leading spaces
+    print $0
+    next
+}
+
+# CHECK IF INLINE MATH AND FORMAT IT
+{
+    cind()
+    if (pbl == 1 && pls==0 && pnzls > 0 && ls > pnzls) {
+        in_verb=start_list(in_verb, "verbatim")
+    }
+    if (in_verb == 0){ $0 = fmtmath($0) }
 }
 
 # SECTIONS
@@ -287,26 +317,20 @@ NF == 0 {
     }
 }
 
+
+
 # All other lines which are paragraphs
 {
     cind()
 
-    sub(/^ +$/,"") # remove spaces in empty lines
-	sub(/^ +/,"") # Remove leading spaces
+    sub(/^ +$/,"", $0) # remove spaces in empty lines
+	sub(/^ +/,"", $0) # Remove leading spaces
     
     in_list=end_list(in_list,"itemize")
     in_desc=end_list(in_desc,"description")
     in_enum=end_list(in_enum,"enumerate")
     
-    if (pbl == 1 && pls==0 && pnzls > 0 && ls > pnzls) {
-        in_verb=start_list(in_verb, "verbatim")
-    }
-
     if (in_verb == 0){
-        gsub(/\$/,"\\$")
-        gsub(/%/,"\\%")
-        gsub("&","\\\\&")
-
         split(itxt, tt, "§")
             for (i in tt)
                 if (tt[i] != "")
@@ -315,17 +339,50 @@ NF == 0 {
             for (i in tt)
                 if (tt[i] != "")
                     sub(tt[i], "\\textbf{"tt[i]"}")
-        
-        hmm()
-    }else{
-        print $0 
     }
-
     if (in_verb == 1 && ls < pnzls) {
         end_list(in_verb, "verbatim")
         pbl=0
     }
+    print $0
+}
 
+function escape (s){
+        gsub(/\\/, "\\textbackslash\\", s)
+        gsub(/#/,"\\#", s)
+        gsub(/\$/,"\\$", s)
+        gsub(/%/,"\\%", s)
+        gsub(/&/,"\\\\&", s)
+        gsub(/{/, "\\{", s)
+        gsub(/}/, "\\}", s)
+        gsub(/_/, "\\\_", s)
+        gsub(/\^/, "\\^\\", s)
+        return s
+}
+
+function fmtmath (s){
+    line = s
+    math=""
+    text=""
+    sout=""
+    i=0
+    in_math = 0
+    while (match(line, /\$([^$]*)\$/, m)) {
+        in_math=1
+        math = m[0]
+        text = substr(line, i, i+RSTART-1)
+        line = substr(line, RSTART + RLENGTH)
+        text = escape(text)
+        sout = sout text math
+    }
+    if (in_math == 1) {
+        line = escape(line)
+        sout = sout line
+    }else{
+        sout = escape(line)
+    }
+
+    return sout
 }
 
 function cind(){
@@ -335,7 +392,6 @@ function cind(){
     ls = RSTART
 }
 
-
 function end_list(s, env)
 {
     if ((s+0)==1){
@@ -343,6 +399,7 @@ function end_list(s, env)
     }
     return 0
 }
+
 function start_list(s, env)
 {
     if ((s+0)==0){
@@ -350,6 +407,7 @@ function start_list(s, env)
     }
     return 1
 }
+
 function start_article(title,author,date) { 
     print "\\documentclass[10pt,notitlepage]{article}" 
     split(ptxt, tt, "§")
@@ -360,53 +418,8 @@ function start_article(title,author,date) {
     print "\\author{"author"}"
     #print "\\date{"date"}"
 }
-function hmm() {
-  # handle underscore in math mode or normal mode.
-  out = ""
-  i = 1
 
-  while (i <= length($0)) {
-    c  = substr($0, i, 1)
-    c2 = substr($0, i, 2)
-
-    # Detect entering/exiting math modes
-    if (c2 == "\\(") {
-      mode = "\\("
-      out = out c2
-      i += 2
-      continue
-    }
-    if (c2 == "\\)") {
-      mode = ""
-      out = out c2
-      i += 2
-      continue
-    }
-    if (c2 == "\\[") {
-      mode = "\\["
-      out = out c2
-      i += 2
-      continue
-    }
-    if (c2 == "\\]") {
-      mode = ""
-      out = out c2
-      i += 2
-      continue
-    }
-
-    # Replace underscore only outside math
-    if (c == "_" && mode == "") {
-      out = out "\\_"
-    } else {
-      out = out c
-    }
-
-    i++
-  }
-
-  print out
-}
 function start_document() { print "\\begin{document}\n\\maketitle\n" }
+
 function end_document() { print "\\end{document}" }
 ' | eval $post
