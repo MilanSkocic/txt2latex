@@ -1,8 +1,7 @@
 VERSION 0.2.0
-- Rebase code on txt2man in order to a similar behavior but only adapted to LaTeX.
-- Reuse grammar from txt2man and convert groff syntax to latex syntax.
-- Update all tests for the new code base.
-- Change license from MIT to GPL v2.
+- Improve parsing rules for handling verbatim blocks, special characters,
+  inline math and math equations.
+- Fix quirks in handling blank lines in verbatim blocks.
 
 
 
