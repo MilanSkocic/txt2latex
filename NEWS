@@ -1,6 +1,14 @@
+VERSION 0.2.0
+- Rebase code on txt2man in order to a similar behavior but only adapted to LaTeX.
+- Reuse grammar from txt2man and convert groff syntax to latex syntax.
+- Update all tests for the new code base.
+- Change license from MIT to GPL v2.
+
+
+
 VERSION 0.1.6
--Handle inline math and special characters even if present in the same line.
--Handle math equations $$...$$ i.e. treated as pure LaTeX.
+- Handle inline math and special characters even if present in the same line.
+- Handle math equations $$...$$ i.e. treated as pure LaTeX.
 
 
 
