@@ -1,20 +1,32 @@
+NAME
+  txt2latex - convert plain ASCII to latex.
+
+SYNOPSIS
+  txt2latex [OPTION...] ARGS... | f(a)
+
 SECTIONS
-  Section header starts at column 1 and it must be upper case.
-  Subsection are not supported and not left-aligned (upper case) text will not
-  be interpreted as a header.
+Section header starts at column 1 and it must be upper case.
+Subsection are not supported and not left-aligned (upper case) text will not
+be interpreted as a header.
 
 PARAGRAPHS
   Paragraphs can be either left-aligned or not. They must be separated
-  by a blank line.
+  by a blank line. txt2latex
 
   Special characters #, $, %, &, _, {, }, ^, \ are protected i.e. escaped.
 
 MATH
-  Inline math such as \(j_{corr}^{25}\), \(\alpha _{ox}\), $\alpha_{red}$ is supported even special characters #, $, %, &, _, {, }, ^, \
+  Inline math such as $ j_{corr}^{25} $, $\alpha _{ox}$, $\alpha_{red}$ is supported even special characters #, $, %, &, _, {, }, ^, \
   or simple equation environment such as
-                       \[ j=j_{0}\left(\exp(X)-\exp(-X)\right) \]
+                       $$ j=j_{0}\left(\exp(X)-\exp(-X)\right) $$
                        $$ j = j_a +j_c $$
   is also supported.
+
+  The equation environment is not used when the display block is 
+  detected
+
+    $$ display block
+    $$ not using equation environment
 
 LISTS
   Three list-like environments are supported: itemize, enumerate and description.
@@ -53,18 +65,33 @@ A second list:
   - item with spaces
 
 EXAMPLE
- Verbatim text can be added by adding indented text preceded by a blank line.
+  Verbatim text can be added by adding indented text preceded by a blank line.
 
-   program main
-   implicit none
-   real ::x
-   x=1
-   end program
+    program main
+    implicit none
+    real ::x  !! Variable declaration
+    x=1
+    end program
+
+    type :: test
+      real :: x
+    contains
+      procedure :: f => func
+    end type test
 
         $ ls -al ./
         $ which txt2latex
         $ txt2latex -h
 
+  See man page for information.
+
 SEE ALSO
 codata(3)
 
+
+CODATA 2010
+o ALPHA_MASS
+o FARADY_CONSTANT
+
+  Verbatim
+  TExt
