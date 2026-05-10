@@ -12,4 +12,4 @@ pdf: out.tex
 	pdflatex t002.txt_doc.tex
 
 clean:
-	rm -fv *.pdf *.txt.tex *.txt_doc.*
+	rm -fv *.pdf *.txt.tex *.txt_doc.* t002.txt

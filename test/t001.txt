@@ -87,11 +87,3 @@ EXAMPLE
 
 SEE ALSO
 codata(3)
-
-
-CODATA 2010
-o ALPHA_MASS
-o FARADY_CONSTANT
-
-  Verbatim
-  TExt
