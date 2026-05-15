@@ -15,6 +15,8 @@ PARAGRAPHS
 
   Special characters #, $, %, &, _, {, }, ^, \ are protected i.e. escaped.
 
+  Symbols such as <, >, <=, >= are transformed to inline math.
+
 MATH
   Inline math such as $ j_{corr}^{25} $, $\alpha _{ox}$, $\alpha_{red}$ is supported even special characters #, $, %, &, _, {, }, ^, \
   or simple equation environment such as
@@ -37,12 +39,12 @@ LISTS
   o label  description with inline math $\Omega ^2$ and special characters _, %
   o label  description
   o label  Multiline descriptions are also supported.
-          They can span over multiple lines either indented after the item
-  or indented to the item beginning. 
-          The only requirement is to place 2 spaces after the label.
+           They can span over multiple lines either indented after the item
+           or indented to the item beginning. 
+           The only requirement is to place 2 spaces after the label.
   o long label  
-      Long labels can be used with the description being written under the
-      label line.
+                Long labels can be used with the description being written under the
+                label line.
   label  the label can also be a simple word.
 
   The enumerated list is triggered when the line starts with [0-9].
@@ -61,8 +63,31 @@ LISTS
       no matter the indentation.
     txt2latex will map all those lines as part of the item.
 
-A second list:
+  A second list:
   - item with spaces
+
+  Nested list-like envs:
+  o nested 1  Desc
+    o nested 2  Description of label nested 2 
+                spanning over multiple lines
+    o nested 2  Desc
+      - i1 
+      - i2
+        1. e1
+        2. e2
+      - i3
+    o nested 3  Desc
+  
+  Nested list-like envs:
+  o nested 1  Desc
+    o nested 2  Desc
+    o nested 2  Desc
+      - i1 
+      - i2
+        1. e1
+        2. e2
+
+  New paragraph
 
 EXAMPLE
   Verbatim text can be added by adding indented text preceded by a blank line.

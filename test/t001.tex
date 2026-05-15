@@ -16,6 +16,8 @@ by a blank line. txt2latex
 
 Special characters \#, \$, \%, \&, \_, \{, \}, \^\, \textbackslash\ are protected i.e. escaped.
 
+Symbols such as $<$, $>$, $<$=, $>$= are transformed to inline math.
+
 \section{MATH}
 Inline math such as $ j_{corr}^{25} $, $\alpha _{ox}$, $\alpha_{red}$ is supported even special characters \#, \$, \%, \&, \_, \{, \}, \^\, \textbackslash\
 or simple equation environment such as
@@ -74,6 +76,45 @@ A second list:
 \begin{itemize}
 \item item with spaces
 \end{itemize}
+
+Nested list-like envs:
+\begin{description}
+\item[o nested 1] Desc
+\begin{description}
+\item[o nested 2] Description of label nested 2 
+                  spanning over multiple lines
+\end{description}
+\item[o nested 2] Desc
+\begin{itemize}
+\item i1 
+\item i2
+\begin{enumerate}
+\item e1
+\item e2
+\end{enumerate}
+\item i3
+\end{itemize}
+\item[o nested 3] Desc
+\end{description}
+  
+Nested list-like envs:
+\begin{description}
+\item[o nested 1] Desc
+\begin{description}
+\item[o nested 2] Desc
+\item[o nested 2] Desc
+\begin{itemize}
+\item i1 
+\item i2
+\begin{enumerate}
+\item e1
+\item e2
+\end{enumerate}
+\end{itemize}
+\end{description}
+\end{description}
+
+New paragraph
 
 \section{EXAMPLE}
 Verbatim text can be added by adding indented text preceded by a blank line.
