@@ -68,15 +68,14 @@ LISTS
 
   Nested list-like envs:
   o nested 1  Desc
-    o nested 2  Description of label nested 2 
-                spanning over multiple lines
+    o nested 2  Description of label nested 2
     o nested 2  Desc
       - i1 
       - i2
         1. e1
         2. e2
       - i3
-    o nested 3  Desc
+    o nested 2  Desc
   
   Nested list-like envs:
   o nested 1  Desc
