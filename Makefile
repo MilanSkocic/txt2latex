@@ -29,7 +29,7 @@ doc: $(BIN)
 
 .PHONY:
 show_man: doc
-	man $(MANGZ)
+	man -l $(MANGZ)
 
 .PHONY:
 test: $(BIN)
