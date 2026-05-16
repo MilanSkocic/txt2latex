@@ -1,10 +1,10 @@
 #!/bin/sh
-
 run() {
 	../build/txt2latex $1 > "$1.tex"
     ../build/txt2latex -a "User Command" -t "txt2latex(1)" \
         -I "OPTION" -I "ARGS" -I "FILE" -B "txt2latex" \
-                       -m $1 > "$1_doc.tex"
+        --man $1 > "$1_doc.tex"
+    cp -v "${1%.txt}.tex" "$1.tex"
 	diff -u "${1%.txt}.tex" "$1.tex"
 }
 
