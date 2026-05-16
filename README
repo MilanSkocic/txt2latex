@@ -55,6 +55,16 @@ OPTIONS
   -P package      Add packages or LateX commands in the preambule.
   -X              Compile output with pdflatex.
 
+NOTES
+  The formatting rules are heavily inspired from txt2man(1). 
+  The special treatment for sections NAME and SYNOPSIS performed 
+  automatically by txt2man(1) is not done by txt2latex.
+  Nonetheless, the objective of txt2latex is not to parse on man-formatted
+  plain text but to convert any plain text to LaTeX. 
+
+  Using the options -B and -I, you can easily format your text as it 
+  would be done by txt2man. 
+
 EXAMPLES
   Simple conversion
 
