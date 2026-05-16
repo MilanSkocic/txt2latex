@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Sat May 16 08:03:08 2026 -->
+<!-- CreationDate: Sat May 16 17:28:40 2026 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -58,81 +58,96 @@
 <p style="margin-left:9%; margin-top: 1em"><i><b>txt2latex</b></i>
 converts the input text into LaTeX.</p>
 
-
-<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
-is also able to recognize and format sections, paragraphs,
-lists (itemize, enumerate, description) and verbatim
-blocks.</p>
-
 <p style="margin-left:9%; margin-top: 1em">If input file
 <i>FILE</i> is omitted, standard input is used. Result is
 displayed on standard output.</p>
 
-<p style="margin-left:9%; margin-top: 1em">Here is how text
-patterns are recognized and processed: <b><br>
+
+<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
+is also able to recognize sections, paragraphs, lists
+(itemize, enumerate, description), verbatim blocks as well
+as inline maths and equations.</p>
+
+<p style="margin-left:9%; margin-top: 1em">The rules for
+processing the text patterns are defined as following:
+<b><br>
 Sections</b></p>
 
-<p style="margin-left:18%;">These headers are defined by a
-line in upper case, starting column 1. Optionally, the
-Section name can be preceded by a blank line. This is useful
-for a better visualization of the source text to be used to
-generate the LaTeX source code.</p>
+<p style="margin-left:18%;">They are defined by a line in
+upper case starting at column 1. Preceding blank lines are
+allowed for better visualization.</p>
 
 <p style="margin-left:9%;"><b>Paragraphs</b></p>
 
-<p style="margin-left:18%;">They must be separated by a
-blank line, and left aligned. Alternatively two blank spaces
-can be used to produce the same result. This option will
-provide a better visualization of the source text to be used
-to generate the LaTeX source code.</p>
+<p style="margin-left:18%;">They must be left aligned and
+preceded by a blank line. Blank spaces at the beginning of
+the paragraphs are allowed and there is no restriction on
+line alignement in a paragraph. Nonetheless, identical
+alignment provides a better visualization of the plain ASCII
+text.</p>
 
 <p style="margin-left:9%;"><b>Description list</b></p>
 
-<p style="margin-left:18%;">The item definition is
-separated from the item description by at least 2 blank
-spaces, even before a new line, if definition is too
-long.</p>
+<p style="margin-left:18%;">Labels of the items are
+separated from the definitions by at least 2 blank spaces,
+even before a new line, if definition is too long.</p>
 
-<p style="margin-left:9%;"><b>Bullet list</b></p>
+<p style="margin-left:9%;"><b>Itemize (bullet) list</b></p>
 
 <p style="margin-left:18%;">Bullet list items are defined
-by the first word being &quot;-&quot;, &quot;*&quot; or
-&quot;o&quot;.</p>
+by the first character being &quot;-&quot;, &quot;*&quot; or
+&quot;o&quot; followed by a space.</p>
 
 <p style="margin-left:9%;"><b>Enumerated list</b></p>
 
-<p style="margin-left:18%;">The first word must be a number
-followed by a dot or a rounded bracket.</p>
+<p style="margin-left:18%;">Enumerated lists are defined by
+the first character being a number followed by a dot or a
+rounded bracket.</p>
 
-<p style="margin-left:9%;"><b>Verbatim blocks</b></p>
+<p style="margin-left:9%;"><b>Nested lists</b></p>
 
-<p style="margin-left:18%;">This paragraph type is used to
-display unmodified text, for example source code. It must be
-separated by a blank line and be indented by a TAB. It is
-primarily used to format unmodified source code. It will be
-printed using verbatim environment.</p>
+<p style="margin-left:18%;">Nested and mixed lists are
+allowed.</p>
+
+<p style="margin-left:9%;"><b>Verbatim block</b></p>
+
+<p style="margin-left:18%;">Verbatim block is used to
+display unmodified text such as quotes of source code. They
+must be separated by a blank line and be indented with
+respect to the previuous line. It will be printed using the
+verbatim environment.</p>
 
 <p style="margin-left:9%;"><b>Mathematics</b></p>
 
 <p style="margin-left:18%;">Inline mathematics must be
 enclosed with a simple $ sign and equations must be enclosed
-with double $ signs.</p>
+with double $ signs. For example, $E=mc&#710;2$ is rendered
+as an inline math whereas $$ E=mc&#710;2 $$ is rendered in a
+simple equation environment.</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="9%"></td>
+<td width="8%">
+
+
+<p><b>Tables</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>There is no support for tables. The workaround is put
+them in a verbatim block.</p></td></tr>
+</table>
 
 <h2>OPTIONS
 <a name="OPTIONS"></a>
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em"><b>-v,
---version</b></p>
-
-<p style="margin-left:18%;">Display version.</p>
-
-<p style="margin-left:9%;"><b>-h, --help</b></p>
-
-<p style="margin-left:18%;">Display help.</p>
-
-<p style="margin-left:9%;"><b>-d date</b></p>
+<p style="margin-left:9%; margin-top: 1em"><b>-d
+date</b></p>
 
 <p style="margin-left:18%;">Set date. Defaults to current
 date.</p>
@@ -152,6 +167,11 @@ and markups for the document</p>
 <p style="margin-left:18%;">Shift heading level by 0
 (section), 1 (subsection), or 2 (subsection). Defaults to
 0.</p>
+
+<p style="margin-left:9%;"><b>-m, --man</b></p>
+
+<p style="margin-left:18%;">Apply the conventions for man
+pages. See NOTES.</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -183,8 +203,8 @@ than once.</p></td></tr>
 
 <p style="margin-left:9%;"><b>-P package</b></p>
 
-<p style="margin-left:18%;">Add packages or LateX commands
-in the preambule.</p>
+<p style="margin-left:18%;">Add packages or LaTeX or TeX
+commands in the preambule.</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -202,6 +222,14 @@ in the preambule.</p>
 <td width="45%">
 </td></tr>
 </table>
+
+<p style="margin-left:9%;"><b>-v, --version</b></p>
+
+<p style="margin-left:18%;">Display version.</p>
+
+<p style="margin-left:9%;"><b>-h, --help</b></p>
+
+<p style="margin-left:18%;">Display help.</p>
 
 <h2>NOTES
 <a name="NOTES"></a>
