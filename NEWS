@@ -1,3 +1,12 @@
+VERSION 0.3.0
+- Add parsing of nested loops. 
+- Improve parsing of special characters: >, <, >=, <=.
+- Add parsing of special words: LaTeX, TeX.
+- Add option --man, -m for applying conventions for man pages.
+- Rewrite of the help text and man page.
+
+
+
 VERSION 0.2.0
 - Improve parsing rules for handling verbatim blocks, special characters,
   inline math and math equations.
