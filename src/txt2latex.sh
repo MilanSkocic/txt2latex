@@ -24,53 +24,63 @@ SYNOPSIS
 DESCRIPTION
   $PROGNAME converts the input text into LaTeX. 
 
-  $PROGNAME is also able to recognize and format sections, paragraphs,
-  lists (itemize, enumerate, description) and verbatim blocks.
-
   If input file FILE is omitted, standard input is used. 
   Result is displayed on standard output. 
 
-  Here is how text patterns are recognized and processed:
-  Sections    These headers are defined by a line in upper case, starting
-              column 1. 
-              Optionally, the Section name can be preceded by a blank line. 
-              This is useful for a better visualization of the source 
-              text to be used to generate the LaTeX source code.
-  Paragraphs  They must be separated by a blank line, and left aligned.
-              Alternatively two blank spaces can be used to produce the
-              same result. This option will provide a better visualization
-              of the source text to be used to generate the LaTeX source code.
+  $PROGNAME is also able to recognize sections, paragraphs,
+  lists (itemize, enumerate, description), verbatim blocks as well as
+  inline maths and equations.
+
+  The rules for processing the text patterns are defined as following:
+  Sections    They are defined by a line in upper case starting at column 1.
+              Preceding blank lines are allowed for better visualization.
+  Paragraphs  They must be left aligned and preceded by a blank line.
+              Blank spaces at the beginning of the paragraphs are allowed
+              and there is no restriction on line alignement in a paragraph.
+              Nonetheless, identical alignment provides a better visualization
+              of the plain ASCII text. 
   Description list  
-              The item definition is separated from the item description
+              Labels of the items are separated from the definitions
               by at least 2 blank spaces, even before a new line, if
               definition is too long.
-  Bullet list  
-              Bullet list items are defined by the first word being "-",
-              "*" or "o".
+  Itemize (bullet) list  
+              Bullet list items are defined by the first character being "-",
+              "*" or "o" followed by a space.
   Enumerated list  
-              The first word must be a number followed by a dot or a rounded bracket.
-  Verbatim blocks  
-              This paragraph type is used to display unmodified text,
-              for example source code. It must be separated by a blank
-              line and be indented by a TAB. It is primarily used to format
-              unmodified source code. It will be printed using verbatim environment.
+              Enumerated lists are defined by the first character being 
+              a number followed by a dot or a rounded bracket.
+  Nested lists  
+              Nested and mixed lists are allowed.
+  Verbatim block  
+              Verbatim block is used to display unmodified text such as 
+              quotes of source code.
+              They must be separated by a blank line and be indented 
+              with respect to the previuous line.
+              It will be printed using the verbatim environment.
   Mathematics  
               Inline mathematics must be enclosed with a simple $ sign
               and equations must be enclosed with double $ signs.
-
+              For example, \$E=mc^2\$ is rendered as an inline math whereas 
+                                \$\$ E=mc^2 \$\$
+              is rendered in a simple equation environment.
+  Tables  
+              There is no support for tables.
+              The workaround is put them in a verbatim block.
+   
 OPTIONS
-  -v, --version   Display version.
-  -h, --help      Display help.
   -d date         Set date. Defaults to current date.
   -t mytitle      Set the title. If the title is set, txt2latex will 
                   automatically add the preambule and markups for the document
   -a author       Set the author.
   -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
                   Defaults to 0.
+  -m, --man       Apply the conventions for man pages. See NOTES.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
-  -P package      Add packages or LateX commands in the preambule.
+  -P package      Add packages or LaTeX or TeX commands in the preambule.
   -X              Compile output with pdflatex.
+  -v, --version   Display version.
+  -h, --help      Display help.
 
 NOTES
   The formatting rules are heavily inspired from txt2man(1). 
@@ -129,6 +139,10 @@ while [[ $# -gt 0 ]]; do
       args+=("-v")
       shift
       ;;
+    --man)
+      args+=("-m")
+      shift
+        ;;
     --) # end of options
       shift
       break
@@ -138,15 +152,15 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     *)
-      break
+      args+=("$1")
+      shift
       ;;
   esac
 done
-
 # Restore positional parameters
-set -- "${args[@]}" "$@"
+set -- "${args[@]}"
 
-while getopts :vhd:t:a:s:mI:B:P:X opt
+while getopts :d:t:a:s:mI:B:P:Xhv opt
 do
 	case $opt in
 	(d) date=$OPTARG;;
@@ -166,7 +180,6 @@ do
 	esac
 done
 shift $(($OPTIND - 1))
-
 
 if [[ ${#@} == 0 ]];then
     if [[ -t 0 ]]; then
@@ -418,7 +431,8 @@ function escape (s){
     gsub(/\^/, "\\^\\", s)
     gsub(/>/,"$>$", s)
     gsub(/</,"$<$", s)
-    gsub(/LaTeX/, "\\LaTeX", s)
+    gsub(/TeX/, "\\TeX\\ ", s)
+    gsub(/La\\TeX\\/, "\\LaTeX\\ ", s)
     return s
 }
 
