@@ -74,7 +74,6 @@ is rendered in a simple equation environment.
 :   Display help.
 
 -d date
-
 :   Set date. Defaults to current date.
 
 -t mytitle
