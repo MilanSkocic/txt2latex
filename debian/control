@@ -16,9 +16,10 @@ Suggests: texlive
 Description: convert flat ASCII text to LaTeX.
  txt2latex converts the input text into LaTeX. 
  .
- txt2latex is also able to recognize and format sections, paragraphs,
- lists (itemize, enumerate, description) and verbatim blocks.
- .
  If input file FILE is omitted, standard input is used. 
  Result is displayed on standard output. 
+ .
+ txt2latex is also able to recognize sections, paragraphs,
+ lists (itemize, enumerate, description), verbatim blocks as well as
+ inline maths and equations.
 
