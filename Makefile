@@ -2,13 +2,12 @@ include make.in
 
 SRC=$(APP_SRC_DIR)/$(APP_NAME).sh
 BIN=$(APP_BUILD_DIR)/$(APP_NAME)
+
 MAN=$(APP_MAN_DIR)/$(APP_MAN_NAME)
 MANGZ=$(APP_MAN_DIR)/$(APP_MAN_NAME).gz
 HTML=$(APP_MAN_DIR)/$(APP_MAN_NAME).html
-PDF=$(APP_MAN_DIR)/$(APP_MAN_NAME).pdf
 
 prefix ?= $(HOME)/.local
-
 
 all: $(BIN)
 
@@ -18,7 +17,7 @@ $(BIN): $(SRC)
 	cp $< $@
 	chmod +x $@
 
-.PHONY:
+.PHONY: doc
 doc: $(BIN) 
 	$(BIN) --help > README
 	txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) README > $(MAN)
@@ -27,31 +26,33 @@ doc: $(BIN)
 	rm -fv docs/$(HTML)
 	mv -fv $(HTML) docs/index.html
 
-.PHONY:
+.PHONY: show_man
 show_man: doc
 	man -l $(MANGZ)
 
-.PHONY:
+.PHONY: test
 test: $(BIN)
 	make -C test
 
 .PHONY:
-pdf: test
+testpdf: test
 	make -C test pdf
 
-.PHONY:
+.PHONY: install
 install: $(BIN)
 	mkdir -p $(DESTDIR)$(prefix)/bin
 	mkdir -p $(DESTDIR)$(prefix)/share/man/man$(APP_MAN_SEC)
 	cp $(BIN) $(DESTDIR)$(prefix)/bin/
 	cp $(MANGZ) $(DESTDIR)$(prefix)/share/man/man$(APP_MAN_SEC)/
 
-.PHONY:
+.PHONY: uninstall
 uninstall: $(BIN)
 	rm $(DESTDIR)$(prefix)/bin/$(APP_NAME)
 	rm $(DESTDIR)$(prefix)/share/man/man$(APP_MAN_SEC)/$(APP_NAME)*
 
-.PHONY:
+.PHONY: clean
 clean:
 	rm -rf $(APP_BUILD_DIR)/*
+	rm -rf $(MAN) $(MAN).gz
+	rm -rf docs/index.html
 	make -C test clean
