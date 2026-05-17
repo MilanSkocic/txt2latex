@@ -1,15 +1,24 @@
-all: t002.txt out.tex
+include ../make.in
 
-t002.txt:
-	../build/txt2latex --help > $@
+BIN=../$(APP_BUILD_DIR)/$(APP_NAME)
 
-out.tex:
-	chmod +x ./runtest
-	./runtest
+all: $(APP_NAME).1 $(APP_NAME).1.tex
 
-pdf: out.tex
-	pdflatex t001.txt_doc.tex
-	pdflatex t002.txt_doc.tex
+.PHONY: $(APP_NAME).1
+txt2latex.1: 
+	$(BIN) --help | txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) > $@
+
+.PHONY: $(APP_NAME).1.tex
+txt2latex.1.tex: 
+	$(BIN) --help | $(BIN) -a "User Commands" -t "$(APP_NAME)($(APP_MAN_SEC))" -I "OPTION" -I "ARGS" -I "FILE" -B "txt2latex" --man > $@
+
+.PHONY: pdf
+pdf: $(APP_NAME).1 $(APP_NAME).1.tex
+	mkdir -p build
+	man -Tpdf -l $(APP_NAME).1 > $(APP_NAME).1-txt2man.pdf
+	pdflatex -output-dir=./build -sync=1 $(APP_NAME).1.tex
+	cp -v ./build/$(APP_NAME).1.pdf ./$(APP_NAME).1-txt2latex.pdf
 
 clean:
-	rm -fv *.pdf *.txt.tex *.txt_doc.* t002.txt
+	rm -rfv ./build/*
+	rm -fv $(APP_NAME)*
