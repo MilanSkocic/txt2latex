@@ -53,6 +53,3 @@ uninstall: $(BIN)
 .PHONY: clean
 clean:
 	rm -rf $(APP_BUILD_DIR)/*
-	rm -rf $(MAN) $(MAN).gz
-	rm -rf docs/index.html
-	make -C test clean
