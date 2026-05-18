@@ -59,10 +59,10 @@ DESCRIPTION
 
   Special characters #, $, %, &, _, {, }, ^, \ are protected i.e. escaped.
 
-  Symbols such as <, >, <=, >= are transformed to inline math.
+  Symbols such as <, >, <=, >= are converted to inline math.
 
   Special words such as LaTeX and TeX are turned into their equivalent 
-  commands in latex for generating special output.
+  commands in latex.
    
 OPTIONS
   -d date         Set date. Defaults to current date.
