@@ -22,4 +22,11 @@ Description: convert flat ASCII text to LaTeX.
  txt2latex is also able to recognize sections, paragraphs,
  lists (itemize, enumerate, description), verbatim blocks as well as
  inline maths and equations.
+ . 
+ The formatting rules are heavily inspired by txt2man(1) to maximize
+ compatibility with plain text written as man pages. 
+ The same source text can be directly converted to 
+ LaTeX without relying on intermediary conversion steps.
+ Nonetheless, the main objective of $PROGNAME is not to parse man-formatted
+ plain text but to convert any plain text to LaTeX. 
 
