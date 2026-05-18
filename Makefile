@@ -11,7 +11,7 @@ prefix ?= $(HOME)/.local
 
 all: $(BIN)
 
-.PHONY:
+.PHONY: $(BIN)
 $(BIN): $(SRC)
 	mkdir -p build
 	cp $< $@
