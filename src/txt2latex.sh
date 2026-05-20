@@ -93,17 +93,19 @@ OPTIONS
   -m, --man       Apply some special formatting for man pages. See NOTES.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
+  -M txt          Monospace txt in output. Can be specified more than once.
   -P package      Add packages or LaTeX or TeX commands in the preambule.
   -v, --version   Display version.
   -h, --help      Display help.
 
 NOTES
-  The special formatting for man pages with the option -m is still
-  experimental:
+  The option -m is an alpha feature and fully implemented. 
+  The formatting is done by applying the adequate preambule in a 
+  standalone document for matching the rendering of man -Tpdf.
+  For now:
     - SYNOPSIS section is formatted as monospaced text.
-    - Set font to times (only if the title option is set). 
-    - Set paragraph indentation (only if the title option is set). 
-
+    - Set font to times.
+    - Set correct paragraph indentation.
 
 EXAMPLES
   Simple conversion
@@ -145,6 +147,7 @@ author=
 date=${date:-$(date +'%d %B %Y')}
 itxt=
 btxt=
+mtxt=
 post=cat
 shiftsec=0
 manstyle=0
@@ -181,7 +184,7 @@ done
 # Restore positional parameters
 set -- "${args[@]}"
 
-while getopts :d:t:a:s:mI:B:P:hv opt
+while getopts :d:t:a:s:mI:B:M:P:hv opt
 do
 	case $opt in
 	(d) date=$OPTARG;;
@@ -191,6 +194,7 @@ do
     (m) manstyle=1;;
 	(I) itxt="$OPTARG§$itxt";;
 	(B) btxt="$OPTARG§$btxt";;
+	(M) mtxt="$OPTARG§$mtxt";;
 	(P) ptxt="$OPTARG§$ptxt";;
 	(h) help; exit;;
 	(v) version; exit;;
@@ -213,6 +217,7 @@ awk -v title="$title" -v author="$author" -v date="$date" \
  -v manstyle="$manstyle" \
  -v itxt="$itxt" \
  -v btxt="$btxt" \
+ -v mtxt="$mtxt" \
  -v ptxt="$ptxt" \
  -v shiftsec=$shiftsec '
 BEGIN {
@@ -421,6 +426,10 @@ if (title != "") {
             for (i in tt)
                 if (tt[i] != "")
                     gsub(tt[i], "\\textbf{&}")
+        split(mtxt, tt, "§")
+            for (i in tt)
+                if (tt[i] != "")
+                    gsub(tt[i], "\\texttt{&}")
     }
 #-----------------------------------------------------------------------
     print $0
