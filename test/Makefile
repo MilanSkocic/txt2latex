@@ -9,7 +9,9 @@ all: $(APP_NAME).1.tex
 txt2latex.1.tex: 
 	$(BIN) --help | $(BIN) -a "User Commands" -t "$(APP_NAME)($(APP_MAN_SEC))" \
 		   -I "OPTION" -I "ARGS" -I "FILE" \
-		   -B "txt2latex" -B "txt2man(1)" --man > $@
+		   -B "txt2latex" -B "[A-Za-z0-9]+\\\([0-9]*\\\)" \
+		   -M "man -Tpdf" \
+		   --man > $@
 
 .PHONY: pdf
 pdf: $(APP_NAME).1.tex
