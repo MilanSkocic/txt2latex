@@ -5,7 +5,7 @@ export APP_NAME="txt2latex"
 export APP_SRC_DIR="src"
 export APP_BUILD_DIR="build"
 export APP_MAN_SEC="1"
-export APP_MAN_DIR="man/man$APP_MAN_SEC"
+export APP_MAN_DIR="doc"
 export APP_MAN_NAME=$APP_NAME.$APP_MAN_SEC
 
 
