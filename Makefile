@@ -5,6 +5,7 @@ BIN=$(APP_BUILD_DIR)/$(APP_NAME)
 
 MAN=$(APP_MAN_DIR)/$(APP_MAN_NAME)
 MANGZ=$(APP_MAN_DIR)/$(APP_MAN_NAME).gz
+PDF=$(APP_MAN_DIR)/$(APP_MAN_NAME).pdf
 HTML=$(APP_MAN_DIR)/$(APP_MAN_NAME).html
 
 prefix ?= $(HOME)/.local
@@ -22,7 +23,8 @@ doc: $(BIN)
 	$(BIN) --help > README
 	txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) README > $(MAN)
 	man -Thtml -l $(MAN) > $(HTML) 
-	gzip -f $(MAN)
+	gzip -k -f $(MAN)
+	man -Tpdf -l $(MAN) > $(PDF) 
 	rm -fv docs/$(HTML)
 	mv -fv $(HTML) docs/index.html
 
