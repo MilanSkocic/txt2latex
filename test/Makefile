@@ -2,11 +2,8 @@ include ../make.in
 
 BIN=../$(APP_BUILD_DIR)/$(APP_NAME)
 
-all: $(APP_NAME).1 $(APP_NAME).1.tex
+all: $(APP_NAME).1.tex
 
-.PHONY: $(APP_NAME).1
-txt2latex.1: 
-	$(BIN) --help | txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) > $@
 
 .PHONY: $(APP_NAME).1.tex
 txt2latex.1.tex: 
@@ -15,11 +12,10 @@ txt2latex.1.tex:
 		   -B "txt2latex" -B "txt2man(1)" --man > $@
 
 .PHONY: pdf
-pdf: $(APP_NAME).1 $(APP_NAME).1.tex
+pdf: $(APP_NAME).1.tex
 	mkdir -p build
-	man -Tpdf -l $(APP_NAME).1 > $(APP_NAME).1-txt2man.pdf
 	pdflatex -output-dir=./build -sync=1 $(APP_NAME).1.tex
-	cp -v ./build/$(APP_NAME).1.pdf ./$(APP_NAME).1-txt2latex.pdf
+	cp -v ./build/$(APP_NAME).1.pdf ./$(APP_NAME).1.pdf
 
 clean:
 	rm -rfv ./build/*
