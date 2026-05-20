@@ -90,15 +90,20 @@ OPTIONS
   -a author       Set the author.
   -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
                   Defaults to 0.
-  -m, --man       Apply some special formatting for man pages:
-                     1. SYNOPSIS section is formatted as monospaced text.
-                     2. Set font to times (only if the title option is set). 
-                     3. Set paragraph indentation (only if the title option is set). 
+  -m, --man       Apply some special formatting for man pages. See NOTES.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
   -P package      Add packages or LaTeX or TeX commands in the preambule.
   -v, --version   Display version.
   -h, --help      Display help.
+
+NOTES
+  The special formatting for man pages with the option -m is still
+  experimental:
+    - SYNOPSIS section is formatted as monospaced text.
+    - Set font to times (only if the title option is set). 
+    - Set paragraph indentation (only if the title option is set). 
+
 
 EXAMPLES
   Simple conversion
@@ -536,8 +541,8 @@ function start_article(title,author,date) {
         print "\\setlength{\\leftskip}{3.5em}"
         print "\\titlespacing*{\\section}{0pt}{\\baselineskip}{-0.2\\baselineskip}"
 
-        print "\\setlist[itemize]{leftmargin=3.5em, labelsep=0.5em}"
-        print "\\setlist[enumerate]{leftmargin=3.5em, labelsep=0.5em}"
+        print "\\setlist[itemize]{leftmargin=7em, labelsep=0.5em}"
+        print "\\setlist[enumerate]{leftmargin=7em, labelsep=0.5em}"
         print "\\setlist[description]{labelindent=3.5em, leftmargin=7em, labelsep=1em, itemsep=0em,}"
     }
 }
