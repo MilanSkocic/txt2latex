@@ -3,11 +3,12 @@ VERSION 0.3.0
 - Improve parsing of special characters: >, <, >=, <=.
 - Add parsing of special words: LaTeX, TeX.
 - Add option --man, -m for applying conventions for man pages.
+  Alpha feature. Not fully implemented.
+- Add option -M for emphasizing (monospace) text in the output.
 - Rewrite of the help text and man page.
-- Set test/Makefile for testing the source as groff from txt2man and
-  the source as latex from txt2latex.
-- Set test/Makefile for generating pdfs for comparing the rendering
-  with txt2man via man -Tpdf and txt2latex via pdflatex.
+- Restructure the documentation and test folders.
+- doc/ contains the outputs of the help text through txt2man(1) and man.
+- test/ contains the outputs through txt2latex(1) and pdflatex(1).
 
 
 
