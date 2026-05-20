@@ -115,15 +115,7 @@ Defaults to 0.
 .TP
 .B
 \fB-m\fP, \fB--man\fP
-Apply some special formatting for man pages:
-.RS
-.IP 1. 4
-SYNOPSIS section is formatted as monospaced text.
-.IP 2. 4
-Set font to times (only if the title option is set).
-.IP 3. 4
-Set paragraph indentation (only if the title option is set).
-.RE
+Apply some special formatting for man pages. See NOTES.
 .TP
 .B
 \fB-I\fP txt
@@ -132,6 +124,10 @@ Italicize txt in output. Can be specified more than once.
 .B
 \fB-B\fP txt
 Emphasize (bold) txt in output. Can be specified more than once.
+.TP
+.B
+\fB-M\fP txt
+Monospace txt in output. Can be specified more than once.
 .TP
 .B
 \fB-P\fP package
@@ -144,6 +140,18 @@ Display version.
 .B
 \fB-h\fP, \fB--help\fP
 Display help.
+.SH NOTES
+The option \fB-m\fP is an alpha feature and fully implemented. 
+The formatting is done by applying the adequate preambule in a 
+standalone document for matching the rendering of man \fB-Tpdf\fP.
+For now:
+.RS
+.IP \(bu 3
+SYNOPSIS section is formatted as monospaced text.
+.IP \(bu 3
+Set font to times.
+.IP \(bu 3
+Set correct paragraph indentation.
 .SH EXAMPLES
 Simple conversion
 .PP

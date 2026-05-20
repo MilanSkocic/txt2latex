@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Wed May 20 07:53:26 2026 -->
+<!-- CreationDate: Wed May 20 08:27:44 2026 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,6 +24,7 @@
 <a href="#SYNOPSIS">SYNOPSIS</a><br>
 <a href="#DESCRIPTION">DESCRIPTION</a><br>
 <a href="#OPTIONS">OPTIONS</a><br>
+<a href="#NOTES">NOTES</a><br>
 <a href="#EXAMPLES">EXAMPLES</a><br>
 <a href="#SEE ALSO">SEE ALSO</a><br>
 
@@ -192,57 +193,7 @@ supported.</p>
 <p style="margin-left:9%;"><b>-m, --man</b></p>
 
 <p style="margin-left:18%;">Apply some special formatting
-for man pages:</p>
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="12%">
-
-
-<p>1.</p></td>
-<td width="2%"></td>
-<td width="77%">
-
-
-<p>SYNOPSIS section is formatted as monospaced text.</p></td></tr>
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="12%">
-
-
-<p>2.</p></td>
-<td width="2%"></td>
-<td width="77%">
-
-
-<p>Set font to times (only if the title option is set).</p></td></tr>
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="12%">
-
-
-<p>3.</p></td>
-<td width="2%"></td>
-<td width="77%">
-
-
-<p>Set paragraph indentation (only if the title option is
-set).</p> </td></tr>
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="12%">
-
-
-<p><b>-I txt</b></p></td>
-<td width="2%"></td>
-<td width="77%">
-</td></tr>
-</table>
-
-<p style="margin-left:18%; margin-top: 1em">Italicize txt
-in output. Can be specified more than once.</p>
+for man pages. See NOTES.</p>
 
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
@@ -251,13 +202,37 @@ in output. Can be specified more than once.</p>
 <td width="8%">
 
 
-<p style="margin-top: 1em"><b>-B txt</b></p></td>
+<p><b>-I txt</b></p></td>
 <td width="1%"></td>
 <td width="82%">
 
 
-<p style="margin-top: 1em">Emphasize (bold) txt in output.
-Can be specified more than once.</p></td></tr>
+<p>Italicize txt in output. Can be specified more than
+once.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="9%"></td>
+<td width="8%">
+
+
+<p><b>-B txt</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>Emphasize (bold) txt in output. Can be specified more
+than once.</p></td></tr>
+<tr valign="top" align="left">
+<td width="9%"></td>
+<td width="8%">
+
+
+<p><b>-M txt</b></p></td>
+<td width="1%"></td>
+<td width="82%">
+
+
+<p>Monospace txt in output. Can be specified more than
+once.</p> </td></tr>
 </table>
 
 <p style="margin-left:9%;"><b>-P package</b></p>
@@ -272,6 +247,60 @@ commands in the preambule.</p>
 <p style="margin-left:9%;"><b>-h, --help</b></p>
 
 <p style="margin-left:18%;">Display help.</p>
+
+<h2>NOTES
+<a name="NOTES"></a>
+</h2>
+
+
+<p style="margin-left:9%; margin-top: 1em">The option
+<b>-m</b> is an alpha feature and fully implemented. The
+formatting is done by applying the adequate preambule in a
+standalone document for matching the rendering of man
+<b>-Tpdf</b>. For now:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="18%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>SYNOPSIS section is formatted as monospaced text.</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="18%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>Set font to times.</p></td>
+<td width="15%">
+</td></tr>
+<tr valign="top" align="left">
+<td width="18%"></td>
+<td width="1%">
+
+
+<p>&bull;</p></td>
+<td width="3%"></td>
+<td width="63%">
+
+
+<p>Set correct paragraph indentation.</p></td>
+<td width="15%">
+</td></tr>
+</table>
 
 <h2>EXAMPLES
 <a name="EXAMPLES"></a>
