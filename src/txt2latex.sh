@@ -118,7 +118,7 @@ EXAMPLES
 
   Conversion with custom packages and direct rendering with pdflatex
 
-    $ $PROGNAME -t "title" -a "author" -I "word" -P "\\\\usepackage{ccfonts}" -X FILE
+    $ $PROGNAME -t "title" -a "author" -I "word" -P "\\\\usepackage{ccfonts}" | pdflatex -jobname="txt2latex"
 
   Try this command to format this text itself and to produce a pdf:
 
