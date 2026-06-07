@@ -18,8 +18,8 @@ $(BIN): $(SRC)
 	cp $< $@
 	chmod +x $@
 
-.PHONY: doc
-doc: $(BIN) 
+.PHONY: docs
+docs: $(BIN) 
 	$(BIN) --help > README
 	txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) README > $(MAN)
 	man -Thtml -l $(MAN) > $(HTML) 
