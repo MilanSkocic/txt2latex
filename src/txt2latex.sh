@@ -424,15 +424,15 @@ if (title != "") {
         split(itxt, tt, "§")
             for (i in tt)
                 if (tt[i] != "")
-                    gsub(tt[i], "\\textit{&}")
+                    gsub(" "tt[i]" ", " \\textit{&} ")
         split(btxt, tt, "§")
             for (i in tt)
                 if (tt[i] != "")
-                    gsub(tt[i], "\\textbf{&}")
+                    gsub(" "tt[i]" ", " \\textbf{&} ")
         split(mtxt, tt, "§")
             for (i in tt)
                 if (tt[i] != "")
-                    gsub(tt[i], "\\texttt{&}")
+                    gsub(" "tt[i]" ", " \\texttt{&} ")
     }
 #-----------------------------------------------------------------------
     print $0
