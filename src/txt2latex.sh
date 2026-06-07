@@ -486,6 +486,19 @@ function fmtmath (s){
     }else{
         sout = escape(line)
     }
+    
+    if (match(line, /http[s]:\/\/(.*)[ \.$]/, m)>0){
+        line = sout
+        sout = ""
+        while (match(line, /http[s]:\/\/([^ ]*)[ $]/, m)) {
+            url = m[0]
+            label = m[1]
+            text = substr(line, i, i+RSTART-1)
+            line = substr(line, RSTART + RLENGTH)
+            url = "\\href{"url"}{"label"} "
+            sout = sout text url
+        }
+    }
 
     return sout
 }
