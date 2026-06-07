@@ -78,6 +78,9 @@ DESCRIPTION
 
   Symbols such as <, >, <=, >= are converted to inline math.
 
+  URLs such as https://www.github.com/MilanSkocic/txt2latex are converted
+  to hyper-references. The URLs must start with http(s)://.
+
   Special words such as LaTeX and TeX are turned into their equivalent 
   commands in latex.
    
