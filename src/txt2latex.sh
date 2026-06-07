@@ -493,7 +493,8 @@ function fmtmath (s){
     if (match(line, /http[s]:\/\/(.*)[ \.$]/, m)>0){
         line = sout
         sout = ""
-        while (match(line, /http[s]:\/\/([^ ]*)[ $]/, m)) {
+        text=""
+        while (match(line, /https?:\/\/([^ ]*)[ $]/, m)) {
             url = m[0]
             label = m[1]
             text = substr(line, i, i+RSTART-1)
@@ -501,6 +502,7 @@ function fmtmath (s){
             url = "\\href{"url"}{"label"} "
             sout = sout text url
         }
+        sout = sout line
     }
 
     return sout
