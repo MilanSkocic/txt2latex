@@ -533,6 +533,8 @@ function start_article(title,author,date) {
     print "\\documentclass[10pt,notitlepage]{article}" 
     print "\\usepackage[utf8]{inputenc}"
     print "\\usepackage[T1]{fontenc}"
+    print "\\usepackage{url}"
+    print "\\usepackage{hyperref}"
     split(ptxt, tt, "§")
         for (i in tt)
             if (tt[i] != "")
