@@ -30,6 +30,11 @@ MATH
     $$ display block
     $$ not using equation environment
 
+URL
+  Urls are automatically parsed when a links of a 
+  form https://github.com/MilanSkocic/txt2latex or http://github.com. 
+  Test
+
 LISTS
   Three list-like environments are supported: itemize, enumerate and description.
 
