@@ -102,7 +102,7 @@ OPTIONS
   -h, --help      Display help.
 
 NOTES
-  The option -m is an alpha feature and fully implemented. 
+  The option -m is an alpha feature and not fully implemented. 
   The formatting is done by applying the adequate preambule in a 
   standalone document for matching the rendering of man -Tpdf.
   For now:
