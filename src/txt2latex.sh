@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+# SPDX-License-Identifier:  GPL-3.0-or-later
+#
 # DEFINE
 PROGNAME="txt2latex"
-PROGVERSION="0.4.1"
+PROGVERSION="0.5.0"
 SHORTDESCRIPTION="Converts text to LaTeX."
 HOMEPAGE="https://github.com/MilanSkocic/txt2latex"
 LICENSE="MIT"
@@ -14,77 +16,11 @@ GREEN="\e[32m"
 
 
 help () {
+#{{{
 cat << EOT
-NAME
-  $PROGNAME - convert flat ASCII text to LaTeX.
+Usage: $PROGNAME [OPTION...] FILE 
+$PROGNAME - convert flat ASCII text to LaTeX.
 
-SYNOPSIS
-  $PROGNAME [OPTION...] FILE 
-
-DESCRIPTION
-  $PROGNAME converts the input text into LaTeX. 
-
-  If the input file FILE is omitted, standard input is used. 
-  The result is displayed on standard output. 
-
-  $PROGNAME is also able to recognize sections, paragraphs,
-  lists (itemize, enumerate, description), verbatim blocks, as well as
-  inline math and equations.
-  
-  The formatting rules are heavily inspired by txt2man(1) to maximize
-  compatibility with plain text written as man pages. 
-  The same source text can be directly converted to 
-  LaTeX without relying on intermediary conversion steps.
-  Nonetheless, the main objective of $PROGNAME is not to parse man-formatted
-  plain text but to convert any plain text to LaTeX. 
-
-  The rules for processing the text patterns are defined as following:
-  Sections    They are defined by a line in upper case starting at column 1.
-              Preceding blank lines are allowed for better visualization.
-  Paragraphs  They must be left aligned and preceded by a blank line.
-              Blank spaces at the beginning of the paragraphs are allowed
-              and there is no restriction on line alignement in a paragraph.
-              Nonetheless, identical alignment provides a better visualization
-              of the plain ASCII text. 
-  Description list  
-              Labels of the items are separated from the definitions
-              by at least 2 blank spaces, even before a new line, if
-              definition is too long.
-  Itemize (bullet) list  
-              Bullet list items are defined by the first character being "-",
-              "*" or "o" followed by a space.
-  Enumerated list  
-              Enumerated lists are defined by the first character being 
-              a number followed by a dot or a rounded bracket.
-  Nested lists  
-              Nested and mixed lists are allowed.
-  Verbatim block  
-              Verbatim block is used to display unmodified text such as 
-              quotes of source code.
-              They must be separated by a blank line and be indented 
-              with respect to the previuous line.
-              It will be printed using the verbatim environment.
-  Mathematics  
-              Inline mathematics must be enclosed with a simple $ sign
-              and equations must be enclosed with double $ signs.
-              For example, \$E=mc^2\$ is rendered as an inline math whereas 
-                                \$\$ E=mc^2 \$\$
-              is rendered in a simple equation environment.
-  Tables  
-              There is no support for tables.
-              The workaround is put them in a verbatim block.
-
-  Special characters #, $, %, &, _, {, }, ^, \ are protected i.e. escaped.
-
-  Symbols such as <, >, <=, >= are converted to inline math.
-
-  URLs such as https://www.github.com/MilanSkocic/txt2latex are converted
-  to hyper-references. The URLs must start with http(s)://.
-
-  Special words such as LaTeX and TeX are turned into their equivalent 
-  commands in latex.
-   
-OPTIONS
   -d date         Set date. Defaults to current date.
   -t mytitle      Set the title. If the title is set, txt2latex will 
                   automatically add all the markups necessary to 
@@ -93,7 +29,7 @@ OPTIONS
   -a author       Set the author.
   -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
                   Defaults to 0.
-  -m, --man       Apply some special formatting for man pages. See NOTES.
+  -m, --man       Apply some special formatting for man pages.
   -I txt          Italicize txt in output. Can be specified more than once.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
   -M txt          Monospace txt in output. Can be specified more than once.
@@ -101,48 +37,25 @@ OPTIONS
   -v, --version   Display version.
   -h, --help      Display help.
 
-NOTES
-  The option -m is an alpha feature and not fully implemented. 
-  The formatting is done by applying the adequate preambule in a 
-  standalone document for matching the rendering of man -Tpdf.
-  For now:
-    - SYNOPSIS section is formatted as monospaced text.
-    - Set font to times.
-    - Set correct paragraph indentation.
+See the man-page $PROGNAME(1) for more details.
 
-EXAMPLES
-  Simple conversion
-
-    $ $PROGNAME FILE > FILE.tex
-  
-  Conversion with document title
-
-    $ $PROGNAME -t "title" -a "author" -I "word" FILE > FILE.tex
-
-  Conversion with custom packages and direct rendering with pdflatex
-
-    $ $PROGNAME -t "title" -a "author" -I "word" -P "\\\\usepackage{ccfonts}" | pdflatex -jobname="txt2latex"
-
-  Try this command to format this text itself and to produce a pdf:
-
-    $ txt2latex -h 2>&1 | txt2latex -t "txt2latex(1)" -a "User commands" --man | pdflatex -jobname="txt2latex"
-
-  Compare it to the man page generated by txt2man(1):
-
-    $ txt2latex -h 2>&1 | txt2man -s 1 -t txt2latex -v "User commands" -r $PROGVERSION | man -l -Tpdf -
-
-SEE ALSO
-  txt2man(1)
+Report bugs at <https://github.com/MilanSkocic/txt2latex/issues>.
 EOT
+#}}}
 }
 
 
 version () {
-echo "PROGRAM:      $PROGNAME                          "
-echo "DESCRIPTION:  $SHORTDESCRIPTION                  "
-echo "VERSION:      $PROGVERSION                       "
-echo "AUTHOR:       $AUTHOR                            "
-echo "LICENSE:      $LICENSE                           "
+#{{{
+echo "$PROGNAME $PROGVERSION" 
+echo ""
+echo "Copyright (C) 2026 Milan Skocic."
+echo "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>."
+echo "This is free software: you are free to change and redistribute it."
+echo "There is NO WARRANTY, to the extent permitted by law."
+echo ""
+echo "Written by Milan Skocic."
+#}}}
 }
 
 title=
@@ -490,7 +403,7 @@ function fmtmath (s){
         sout = escape(line)
     }
     
-    pattern = "https?:\/\/([^ ]*)[ $]"
+    pattern = "https?:\/\/([^ ]+)"
     if (match(line, pattern, m)>0){
         line = sout
         sout = ""
