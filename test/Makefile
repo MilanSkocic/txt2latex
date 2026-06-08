@@ -11,7 +11,7 @@ txt2latex.1.tex:
 		   -I "OPTION" -I "ARGS" -I "FILE" \
 		   -B "txt2latex" -B "[A-Za-z0-9]+\\\([0-9]*\\\)" \
 		   -M "man -Tpdf" \
-		   --man ../README > $@
+		   --man ../docs/txt2latex.1.man > $@
 
 .PHONY: pdf
 pdf: $(APP_NAME).1.tex
