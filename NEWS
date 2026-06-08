@@ -1,3 +1,6 @@
+VERSION 0.4.1
+  - Hot fix for regex pattern for links.
+
 VERSION 0.4.0
   - Add parsing for links starting with http(s)://.
 
