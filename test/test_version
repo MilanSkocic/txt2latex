@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+value=$(../build/txt2latex -v | awk 'NR==1{print $2}')
+expected=$(cat ../VERSION)
+
+echo -n "Testing version..."
+
+if [[ "$value" != "$expected" ]]; then 
+    echo  "$value != $expected"
+    echo "Failed."
+    exit 1
+else
+    echo  "OK."
+fi

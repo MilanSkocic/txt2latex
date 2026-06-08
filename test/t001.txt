@@ -32,7 +32,7 @@ MATH
 
 URL
   Urls are automatically parsed when a links of a 
-  form https://github.com/MilanSkocic/txt2latex or http://github.com. 
+  form https://github.com/MilanSkocic/txt2latex or http://github.com.
   Test
 
 LISTS
