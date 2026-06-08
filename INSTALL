@@ -1,14 +1,17 @@
-A Makefile is provided for installing the script and its man page.
+BINARIES
+  A debian package is available https://github.com/MilanSkocic/txt2latex/releases.
 
-    $ ./configure 
-    $ make 
-    $ make install
+SOURCES
+  A Makefile is provided for installing the script and its man page.
 
-You can change the installation path by settings prefix as shown in the example
-below where the installation will be system-wide.
-By default prefix=$HOME/.local.
+      $ ./configure 
+      $ make 
+      $ make install
 
-    $ make
-    $ make install prefix=/usr/local
+  You can change the installation path by setting the prefix as shown 
+  in the example below where the installation will be system-wide.
+  By default prefix=$HOME/.local.
 
-A debian package is also available: https://github.com/MilanSkocic/txt2latex/releases.
+      $ make
+      $ make install prefix=/usr/local
+
