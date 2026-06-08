@@ -1,0 +1,118 @@
+NAME
+  txt2latex - convert flat ASCII text to LaTeX.
+
+SYNOPSIS
+  txt2latex [OPTION...] FILE 
+
+DESCRIPTION
+  txt2latex converts the input text into LaTeX. 
+
+  If the input file FILE is omitted, standard input is used. 
+  The result is displayed on standard output. 
+
+  txt2latex is also able to recognize sections, paragraphs,
+  lists (itemize, enumerate, description), verbatim blocks, as well as
+  inline math and equations.
+  
+  The formatting rules are heavily inspired by txt2man(1) to maximize
+  compatibility with plain text written as man pages. 
+  The same source text can be directly converted to 
+  LaTeX without relying on intermediary conversion steps.
+  Nonetheless, the main objective of txt2latex is not to parse man-formatted
+  plain text but to convert any plain text to LaTeX. 
+
+  The rules for processing the text patterns are defined as following:
+  Sections    They are defined by a line in upper case starting at column 1.
+              Preceding blank lines are allowed for better visualization.
+  Paragraphs  They must be left aligned and preceded by a blank line.
+              Blank spaces at the beginning of the paragraphs are allowed
+              and there is no restriction on line alignement in a paragraph.
+              Nonetheless, identical alignment provides a better visualization
+              of the plain ASCII text. 
+  Description list  
+              Labels of the items are separated from the definitions
+              by at least 2 blank spaces, even before a new line, if
+              definition is too long.
+  Itemize (bullet) list  
+              Bullet list items are defined by the first character being "-",
+              "*" or "o" followed by a space.
+  Enumerated list  
+              Enumerated lists are defined by the first character being 
+              a number followed by a dot or a rounded bracket.
+  Nested lists  
+              Nested and mixed lists are allowed.
+  Verbatim block  
+              Verbatim block is used to display unmodified text such as 
+              quotes of source code.
+              They must be separated by a blank line and be indented 
+              with respect to the previuous line.
+              It will be printed using the verbatim environment.
+  Mathematics  
+              Inline mathematics must be enclosed with a simple $ sign
+              and equations must be enclosed with double $ signs.
+              For example, $E=mc^2$ is rendered as an inline math whereas 
+                                $$ E=mc^2 $$
+              is rendered in a simple equation environment.
+  Tables  
+              There is no support for tables.
+              The workaround is put them in a verbatim block.
+
+  Special characters #, $, %, &, _, {, }, ^, \ are protected i.e. escaped.
+
+  Symbols such as <, >, <=, >= are converted to inline math.
+
+  URLs such as https://www.github.com/MilanSkocic/txt2latex are converted
+  to hyper-references. The URLs must start with http(s)://.
+
+  Special words such as LaTeX and TeX are turned into their equivalent 
+  commands in latex.
+   
+OPTIONS
+  -d date         Set date. Defaults to current date.
+  -t mytitle      Set the title. If the title is set, txt2latex will 
+                  automatically add all the markups necessary to 
+                  create a standalone latex document that can be compiled 
+                  with pdflatex. Xelatex and lualatex are not supported. 
+  -a author       Set the author.
+  -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
+                  Defaults to 0.
+  -m, --man       Apply some special formatting for man pages. See NOTES.
+  -I txt          Italicize txt in output. Can be specified more than once.
+  -B txt          Emphasize (bold) txt in output. Can be specified more than once.
+  -M txt          Monospace txt in output. Can be specified more than once.
+  -P package      Add packages or LaTeX or TeX commands in the preambule.
+  -v, --version   Display version.
+  -h, --help      Display help.
+
+NOTES
+  The option -m is an alpha feature and not fully implemented. 
+  The formatting is done by applying the adequate preambule in a 
+  standalone document for matching the rendering of man -Tpdf.
+  For now:
+    - SYNOPSIS section is formatted as monospaced text.
+    - Set font to times.
+    - Set correct paragraph indentation.
+
+EXAMPLES
+  Simple conversion
+
+    $ txt2latex FILE > FILE.tex
+  
+  Conversion with document title
+
+    $ txt2latex -t "title" -a "author" -I "word" FILE > FILE.tex
+
+  Conversion with custom packages and direct rendering with pdflatex
+
+    $ txt2latex -t "title" -a "author" -I "word" -P "\\usepackage{ccfonts}" | pdflatex -jobname="txt2latex"
+
+  Try this command to format this text itself and to produce a pdf:
+
+    $ txt2latex -h 2>&1 | txt2latex -t "txt2latex(1)" -a "User commands" --man | pdflatex -jobname="txt2latex"
+
+  Compare it to the man page generated by txt2man(1):
+
+    $ txt2latex -h 2>&1 | txt2man -s 1 -t txt2latex -v "User commands" -r 0.5.0 | man -l -Tpdf
+
+SEE ALSO
+  txt2man(1)
