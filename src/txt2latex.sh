@@ -490,7 +490,7 @@ function fmtmath (s){
         sout = escape(line)
     }
     
-    if (match(line, /http[s]:\/\/(.*)[ \.$]/, m)>0){
+    if (match(line, /http?:\/\/(.*)[ $]/, m)>0){
         line = sout
         sout = ""
         text=""
