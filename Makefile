@@ -19,8 +19,7 @@ $(BIN): $(SRC)
 	chmod +x $@
 
 .PHONY: docs
-docs: $(BIN) 
-	$(BIN) --help > README
+docs:
 	txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) README > $(MAN)
 	man -Thtml -l $(MAN) > $(HTML) 
 	gzip -k -f $(MAN)
