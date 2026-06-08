@@ -2,7 +2,7 @@
 
 # DEFINE
 PROGNAME="txt2latex"
-PROGVERSION="0.4.0"
+PROGVERSION="0.4.1"
 SHORTDESCRIPTION="Converts text to LaTeX."
 HOMEPAGE="https://github.com/MilanSkocic/txt2latex"
 LICENSE="MIT"
@@ -490,11 +490,12 @@ function fmtmath (s){
         sout = escape(line)
     }
     
-    if (match(line, /http?:\/\/(.*)[ $]/, m)>0){
+    pattern = "https?:\/\/([^ ]*)[ $]"
+    if (match(line, pattern, m)>0){
         line = sout
         sout = ""
         text=""
-        while (match(line, /https?:\/\/([^ ]*)[ $]/, m)) {
+        while (match(line, pattern, m)) {
             url = m[0]
             label = m[1]
             text = substr(line, i, i+RSTART-1)
