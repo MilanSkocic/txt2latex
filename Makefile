@@ -6,6 +6,7 @@ BIN=$(APP_BUILD_DIR)/$(APP_NAME)
 MAN=$(APP_MAN_DIR)/$(APP_MAN_NAME)
 MANGZ=$(APP_MAN_DIR)/$(APP_MAN_NAME).gz
 PDF=$(APP_MAN_DIR)/$(APP_MAN_NAME).pdf
+TXT=$(APP_MAN_DIR)/$(APP_MAN_NAME).txt
 HTML=$(APP_MAN_DIR)/$(APP_MAN_NAME).html
 
 prefix ?= $(HOME)/.local
@@ -20,12 +21,12 @@ $(BIN): $(SRC)
 
 .PHONY: docs
 docs:
-	txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) README > $(MAN)
+	txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) $(MAN).man > $(MAN)
 	man -Thtml -l $(MAN) > $(HTML) 
 	gzip -k -f $(MAN)
 	man -Tpdf -l $(MAN) > $(PDF) 
-	rm -fv docs/$(HTML)
-	mv -fv $(HTML) docs/index.html
+	man -l $(MAN) > $(TXT) 
+	cp -fv $(TXT) README
 
 .PHONY: show_man
 show_man: doc
