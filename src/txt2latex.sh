@@ -32,6 +32,29 @@ RED="\e[31m"
 BLACK="\e[0m"
 GREEN="\e[32m"
 
+version () {
+#{{{
+cat << EOT
+$PROGNAME $PROGVERSION 
+
+Copyright (C) 2026 Milan Skocic.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Milan Skocic.
+EOT
+#}}}
+}
+
+usage () {
+cat << EOT 
+Usage: $PROGNAME [-d date] [-t title] [-a author] [-s shift] [-m|--man]
+                 [-I txt]... [-B txt]... [-M]... [-P package]... 
+                 [-u|--usage] [-v|--version] [-h|--help]
+EOT
+}
+
 
 help () {
 #{{{
@@ -52,6 +75,7 @@ $PROGNAME - convert flat ASCII text to LaTeX.
   -B txt          Emphasize (bold) txt in output. Can be specified more than once.
   -M txt          Monospace txt in output. Can be specified more than once.
   -P package      Add packages or LaTeX or TeX commands in the preambule.
+  -u, --usage     Display synopsis.
   -v, --version   Display version.
   -h, --help      Display help.
 
@@ -63,18 +87,6 @@ EOT
 }
 
 
-version () {
-#{{{
-echo "$PROGNAME $PROGVERSION" 
-echo ""
-echo "Copyright (C) 2026 Milan Skocic."
-echo "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>."
-echo "This is free software: you are free to change and redistribute it."
-echo "There is NO WARRANTY, to the extent permitted by law."
-echo ""
-echo "Written by Milan Skocic."
-#}}}
-}
 
 title=
 author=
@@ -89,6 +101,10 @@ manstyle=0
 args=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    --usage)
+        args+=("-u")
+        shift
+        ;;
     --help)
       args+=("-h")
       shift
@@ -118,7 +134,7 @@ done
 # Restore positional parameters
 set -- "${args[@]}"
 
-while getopts :d:t:a:s:mI:B:M:P:hv opt
+while getopts :d:t:a:s:mI:B:M:P:uhv opt
 do
 	case $opt in
 	(d) date=$OPTARG;;
@@ -130,6 +146,7 @@ do
 	(B) btxt="$OPTARG§$btxt";;
 	(M) mtxt="$OPTARG§$mtxt";;
 	(P) ptxt="$OPTARG§$ptxt";;
+    (u) usage; exit;;
 	(h) help; exit;;
 	(v) version; exit;;
     :) echo "Option -$OPTARG requires an argument"; exit 1;;
