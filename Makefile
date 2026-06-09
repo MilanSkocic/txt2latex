@@ -26,7 +26,7 @@ docs:
 	gzip -k -f $(MAN)
 	man -Tpdf -l $(MAN) > $(PDF) 
 	man -l $(MAN) > $(TXT) 
-	cp -fv $(TXT) README
+	cp -fv $(MAN) README
 
 .PHONY: show_man
 show_man: doc
