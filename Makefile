@@ -28,10 +28,6 @@ docs:
 	man -l $(MAN) > $(TXT) 
 	cp -fv $(MAN).man README
 
-.PHONY: show_man
-show_man: doc
-	man -l $(MANGZ)
-
 .PHONY: test
 test: $(BIN)
 	make -C test
