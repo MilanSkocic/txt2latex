@@ -112,6 +112,9 @@ OPTIONS
        -P package
               Add packages or LaTeX or TeX commands in the preambule.
 
+       -u, --usage
+              Display synopsis.
+
        -v, --version
               Display version.
 
