@@ -122,7 +122,11 @@ while [[ $# -gt 0 ]]; do
     --man)
       args+=("-m")
       shift
-        ;;
+      ;;
+    --num)
+      args+=("-n")
+      shift
+      ;;
     --) # end of options
       shift
       break
