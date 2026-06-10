@@ -10,7 +10,9 @@ txt2latex.1.tex:
 	$(BIN) -a "User Commands" -t "$(APP_NAME)($(APP_MAN_SEC))" \
 		   -I "OPTION" -I "ARGS" -I "FILE" \
 		   -B "txt2latex" -B "[A-Za-z0-9]+\\\([0-9]*\\\)" \
-		   -M "man -Tpdf" \
+		   -E "man -Tpdf" \
+		   -M "ASCII" -M "ascii" \
+		   -P "\\\usepackage{ccfonts}" \
 		   --man ../docs/txt2latex.1.man > $@
 
 .PHONY: pdf
