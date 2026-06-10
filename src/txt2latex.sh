@@ -448,6 +448,8 @@ function fmtmath (s){
             label = m[1]
             text = substr(line, i, i+RSTART-1)
             line = substr(line, RSTART + RLENGTH)
+	    sub(/\.$/,"",url)
+	    sub(/)$/,"",url)
             url = "\\href{"url"}{"label"} "
             sout = sout text url
         }
