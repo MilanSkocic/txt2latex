@@ -1,3 +1,9 @@
+txt2latex (0.5.1-1) unstable; urgency=medium
+
+  * New upstream release. 
+
+ -- Milan Skocic <milan.skocic@gmail.com>  Wed, 10 Jun 2026 03:22:39 +0200
+
 txt2latex (0.5.0-1) unstable; urgency=medium
 
   * New upstream release.
