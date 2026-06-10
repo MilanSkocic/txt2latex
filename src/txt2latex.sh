@@ -70,11 +70,13 @@ $PROGNAME - convert flat ASCII text to LaTeX.
   -a author       Set the author.
   -s shift        Shift heading level by 0 (section), 1 (subsection), or 2 (subsection).
                   Defaults to 0.
-  -m, --man       Apply some special formatting for man pages.
-  -I txt          Italicize txt in output. Can be specified more than once.
-  -B txt          Emphasize (bold) txt in output. Can be specified more than once.
+  -I txt          Italic txt in output. Can be specified more than once.
+  -B txt          Bold txt in output. Can be specified more than once.
   -M txt          Monospace txt in output. Can be specified more than once.
+  -E txt          Emphasize txt in output. Can be specified more than once.
   -P package      Add packages or LaTeX or TeX commands in the preambule.
+  -m, --man       Apply some special formatting for man pages.
+  -n, --num       Unnumbered sections. By default, sections are not numbered.
   -u, --usage     Display synopsis.
   -v, --version   Display version.
   -h, --help      Display help.
@@ -94,9 +96,11 @@ date=${date:-$(date +'%d %B %Y')}
 itxt=
 btxt=
 mtxt=
+etxt=
 post=cat
 shiftsec=0
 manstyle=0
+numbered=0
 
 args=()
 while [[ $# -gt 0 ]]; do
@@ -134,18 +138,20 @@ done
 # Restore positional parameters
 set -- "${args[@]}"
 
-while getopts :d:t:a:s:mI:B:M:P:uhv opt
+while getopts :d:t:a:s:I:B:M:E:UP:mnuhv opt
 do
 	case $opt in
 	(d) date=$OPTARG;;
 	(t) title=$OPTARG;;
 	(a) author=$OPTARG;;
     (s) shiftsec=$OPTARG;;
-    (m) manstyle=1;;
 	(I) itxt="$OPTARG§$itxt";;
 	(B) btxt="$OPTARG§$btxt";;
 	(M) mtxt="$OPTARG§$mtxt";;
+	(E) etxt="$OPTARG§$etxt";;
 	(P) ptxt="$OPTARG§$ptxt";;
+    (m) manstyle=1;;
+    (n) numbered=1;; 
     (u) usage; exit;;
 	(h) help; exit;;
 	(v) version; exit;;
@@ -166,9 +172,11 @@ fi
 expand $@ | 
 awk -v title="$title" -v author="$author" -v date="$date" \
  -v manstyle="$manstyle" \
+ -v numbered="$numbered" \
  -v itxt="$itxt" \
  -v btxt="$btxt" \
  -v mtxt="$mtxt" \
+ -v etxt="$etxt" \
  -v ptxt="$ptxt" \
  -v shiftsec=$shiftsec '
 BEGIN {
@@ -188,11 +196,16 @@ levels[3] = "n"
 levels[4] = "n"
 levels[5] = "n"
 
+NUMBERED SECTIONS
 # UNNUMBERED FOR MAN PAGE
 if(manstyle==1){
     secnum="*"
 }else{
-    secnum=""
+    if (numbered==1){
+        secnum=""
+    }else{
+        secnum="*"
+    }
 }
 
 
@@ -369,18 +382,6 @@ if (title != "") {
             }
         }
     
-        split(itxt, tt, "§")
-            for (i in tt)
-                if (tt[i] != "")
-                    gsub(" "tt[i]" ", " \\textit{&} ")
-        split(btxt, tt, "§")
-            for (i in tt)
-                if (tt[i] != "")
-                    gsub(" "tt[i]" ", " \\textbf{&} ")
-        split(mtxt, tt, "§")
-            for (i in tt)
-                if (tt[i] != "")
-                    gsub(" "tt[i]" ", " \\texttt{&} ")
     }
 #-----------------------------------------------------------------------
     print $0
@@ -448,15 +449,40 @@ function fmtmath (s){
             label = m[1]
             text = substr(line, i, i+RSTART-1)
             line = substr(line, RSTART + RLENGTH)
-	    sub(/\.$/,"",url)
-	    sub(/)$/,"",url)
+            sub(/\.$/,"",url)
+            sub(/)$/,"",url)
+            text = ibme(text)
             url = "\\href{"url"}{"label"} "
             sout = sout text url
         }
         sout = sout line
     }
+    else{
+        sout = ibme(sout)
+    }
 
     return sout
+}
+
+function ibme(s)
+{
+    split(itxt, tt, "§")
+        for (i in tt)
+            if (tt[i] != "")
+                gsub(tt[i], "\\textit{&}", s)
+    split(btxt, tt, "§")
+        for (i in tt)
+            if (tt[i] != "")
+                gsub(tt[i], "\\textbf{&}", s)
+    split(mtxt, tt, "§")
+        for (i in tt)
+            if (tt[i] != "")
+                gsub(tt[i], "\\texttt{&}", s)
+    split(etxt, tt, "§")
+        for (i in tt)
+            if (tt[i] != "")
+                gsub(tt[i], "\\emph{&}", s)
+    return s
 }
 
 function cind(){
