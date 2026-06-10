@@ -49,9 +49,11 @@ EOT
 
 usage () {
 cat << EOT 
-Usage: $PROGNAME [-d date] [-t title] [-a author] [-s shift] [-m|--man]
-                 [-I txt]... [-B txt]... [-M]... [-P package]... 
-                 [-u|--usage] [-v|--version] [-h|--help]
+Usage: $PROGNAME [-d date] [-t mytitle] [-a author] [-s shift] 
+                 [-I txt] [-B txt] [-M txt] [-E txt] 
+                 [-P package] 
+                 [-m, --man] [-n, --num] 
+                 [-u, --usage] [-v, --version] [-h, --help]
 EOT
 }
 
