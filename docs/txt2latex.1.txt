@@ -99,18 +99,23 @@ OPTIONS
               Shift heading level by 0 (section), 1 (subsection), or  2
               (subsection).  Defaults to 0.
 
-       -m, --man
-              Apply some special formatting for man pages. See NOTES.
+       -I txt Italic txt in output. Can be specified more than once.
 
-       -I txt Italicize txt in output. Can be specified more than once.
-
-       -B txt Emphasize  (bold)  txt  in  output. Can be specified more
-              than once.
+       -B txt Bold txt in output. Can be specified more than once.
 
        -M txt Monospace txt in output. Can be specified more than once.
 
+       -E txt Emphasize txt in output. Can be specified more than once.
+
        -P package
               Add packages or LaTeX or TeX commands in the preambule.
+
+       -m, --man
+              Apply some special formatting for man pages.
+
+       -n, --num
+              Unnumbered  sections.  By  default, sections are not num‐
+              bered.
 
        -u, --usage
               Display synopsis.
@@ -159,4 +164,4 @@ EXAMPLES
 SEE ALSO
        txt2man(1)
 
-0.5.0                         09 June 2026                 txt2latex(1)
+0.5.1                         10 June 2026                 txt2latex(1)
