@@ -26,6 +26,7 @@ docs:
 	gzip -k -f $(MAN)
 	man -Tpdf -l $(MAN) > $(PDF) 
 	man -l $(MAN) > $(TXT) 
+	cp $(HTML) docs/index.html
 
 .PHONY: test
 test: $(BIN)
