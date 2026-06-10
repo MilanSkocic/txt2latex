@@ -26,7 +26,6 @@ docs:
 	gzip -k -f $(MAN)
 	man -Tpdf -l $(MAN) > $(PDF) 
 	man -l $(MAN) > $(TXT) 
-	cp -fv $(MAN).man README
 
 .PHONY: test
 test: $(BIN)
