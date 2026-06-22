@@ -61,7 +61,7 @@ EOT
 help () {
 #{{{
 cat << EOT
-Usage: $PROGNAME [OPTION...] FILE 
+Usage: $PROGNAME [OPTION]... FILE 
 $PROGNAME - convert flat ASCII text to LaTeX.
 
   -d date         Set date. Defaults to current date.
