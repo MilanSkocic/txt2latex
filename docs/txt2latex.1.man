@@ -2,7 +2,7 @@ NAME
   txt2latex - convert flat ASCII text to LaTeX.
 
 SYNOPSIS
-  txt2latex [OPTION...] FILE 
+  txt2latex [OPTION]... FILE 
 
 DESCRIPTION
   txt2latex converts the input text into LaTeX. 
