@@ -1,17 +1,21 @@
-<!-- Creator     : groff version 1.23.0 -->
-<!-- CreationDate: Mon Jun 22 23:51:10 2026 -->
+<!-- Creator     : groff version 1.25.0 -->
+<!-- CreationDate: Sun Nov 22 19:28:52 2026 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, see www.gnu.org">
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="Content-Style" content="text/css">
 <style type="text/css">
        p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
        pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
        table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
        h1      { text-align: center }
+       body    { max-width: 80ch; margin-left: auto; margin-right: auto; padding: 1em; }
+       img     { max-width: 100%; height: auto; }
+         .code-display { display: block; font-family: monospace; }
+         .code-display p { margin-top: 0; margin-bottom: 0; }
 </style>
 <title>txt2latex</title>
 
@@ -36,18 +40,16 @@
 </h2>
 
 
-
-<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
-- convert flat ASCII text to LaTeX.</p>
+<p style="margin-left:6%; margin-top: 1em">txt2latex -
+convert flat ASCII text to LaTeX.</p>
 
 <h2>SYNOPSIS
 <a name="SYNOPSIS"></a>
 </h2>
 
 
-
-<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
-[OPTION]... <i>FILE</i></p>
+<p style="margin-left:6%; margin-top: 1em"><b>txt2latex
+[</b><i>OPTION</i><b>]...</b> <i>FILE</i></p>
 
 <h2>DESCRIPTION
 <a name="DESCRIPTION"></a>
@@ -55,21 +57,21 @@
 
 
 
-<p style="margin-left:9%; margin-top: 1em"><i><b>txt2latex</b></i>
+<p style="margin-left:6%; margin-top: 1em"><i><b>txt2latex</b></i>
 converts the input text into LaTeX.</p>
 
-<p style="margin-left:9%; margin-top: 1em">If the input
+<p style="margin-left:6%; margin-top: 1em">If the input
 file <i>FILE</i> is omitted, standard input is used. The
 result is displayed on standard output.</p>
 
 
-<p style="margin-left:9%; margin-top: 1em"><b>txt2latex</b>
+<p style="margin-left:6%; margin-top: 1em"><b>txt2latex</b>
 is also able to recognize sections, paragraphs, lists
 (itemize, enumerate, description), verbatim blocks, as well
 as inline math and equations.</p>
 
-<p style="margin-left:9%; margin-top: 1em">The formatting
-rules are heavily inspired by <b>txt2man</b>(1) to maximize
+<p style="margin-left:6%; margin-top: 1em">The formatting
+rules are heavily inspired by <b>txt2man(1)</b> to maximize
 compatibility with plain text written as man pages. The same
 source text can be directly converted to LaTeX without
 relying on intermediary conversion steps. Nonetheless, the
@@ -77,92 +79,81 @@ main objective of <b>txt2latex</b> is not to parse
 man-formatted plain text but to convert any plain text to
 LaTeX.</p>
 
-<p style="margin-left:9%; margin-top: 1em">The rules for
+<p style="margin-left:6%; margin-top: 1em">The rules for
 processing the text patterns are defined as following:
 <b><br>
 Sections</b></p>
 
-<p style="margin-left:18%;">They are defined by a line in
+<p style="margin-left:15%;">They are defined by a line in
 upper case starting at column 1. Preceding blank lines are
 allowed for better visualization.</p>
 
-<p style="margin-left:9%;"><b>Paragraphs</b></p>
+<p style="margin-left:6%;"><b>Paragraphs</b></p>
 
-<p style="margin-left:18%;">They must be left aligned and
+<p style="margin-left:15%;">They must be left aligned and
 preceded by a blank line. Blank spaces at the beginning of
 the paragraphs are allowed and there is no restriction on
 line alignement in a paragraph. Nonetheless, identical
 alignment provides a better visualization of the plain ASCII
 text.</p>
 
-<p style="margin-left:9%;"><b>Description list</b></p>
+<p style="margin-left:6%;"><b>Description list</b></p>
 
-<p style="margin-left:18%;">Labels of the items are
+<p style="margin-left:15%;">Labels of the items are
 separated from the definitions by at least 2 blank spaces,
 even before a new line, if definition is too long.</p>
 
-<p style="margin-left:9%;"><b>Itemize (bullet) list</b></p>
+<p style="margin-left:6%;"><b>Itemize (bullet) list</b></p>
 
-<p style="margin-left:18%;">Bullet list items are defined
+<p style="margin-left:15%;">Bullet list items are defined
 by the first character being &quot;-&quot;, &quot;*&quot; or
 &quot;o&quot; followed by a space.</p>
 
-<p style="margin-left:9%;"><b>Enumerated list</b></p>
+<p style="margin-left:6%;"><b>Enumerated list</b></p>
 
-<p style="margin-left:18%;">Enumerated lists are defined by
+<p style="margin-left:15%;">Enumerated lists are defined by
 the first character being a number followed by a dot or a
 rounded bracket.</p>
 
-<p style="margin-left:9%;"><b>Nested lists</b></p>
+<p style="margin-left:6%;"><b>Nested lists</b></p>
 
-<p style="margin-left:18%;">Nested and mixed lists are
+<p style="margin-left:15%;">Nested and mixed lists are
 allowed.</p>
 
-<p style="margin-left:9%;"><b>Verbatim block</b></p>
+<p style="margin-left:6%;"><b>Verbatim block</b></p>
 
-<p style="margin-left:18%;">Verbatim block is used to
+<p style="margin-left:15%;">Verbatim block is used to
 display unmodified text such as quotes of source code. They
 must be separated by a blank line and be indented with
-respect to the previuous line. It will be printed using the
+respect to the previous line. It will be printed using the
 verbatim environment.</p>
 
-<p style="margin-left:9%;"><b>Mathematics</b></p>
+<p style="margin-left:6%;"><b>Mathematics</b></p>
 
-<p style="margin-left:18%;">Inline mathematics must be
+<p style="margin-left:15%;">Inline mathematics must be
 enclosed with a simple $ sign and equations must be enclosed
-with double $ signs. For example, $E=mc&#710;2$ is rendered
-as an inline math whereas $$ E=mc&#710;2 $$ is rendered in a
-simple equation environment.</p>
+with double $ signs. For example, $E=mcˆ2$ is rendered as
+an inline math whereas $$ E=mcˆ2 $$ is rendered in a simple
+equation environment.</p>
 
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
+<p style="margin-left:6%;"><b>Tables</b></p>
 
+<p style="margin-left:15%;">There is no support for tables.
+The workaround is put them in a verbatim block.</p>
 
-<p><b>Tables</b></p></td>
-<td width="1%"></td>
-<td width="82%">
+<p style="margin-left:6%; margin-top: 1em">Special
+characters #, $, %, &amp;, _, {, }, ˆ, &nbsp;are protected
+i.e. escaped.</p>
 
-
-<p>There is no support for tables. The workaround is put
-them in a verbatim block.</p></td></tr>
-</table>
-
-<p style="margin-left:9%; margin-top: 1em">Special
-characters #, $, %, &amp;, _, {, }, &#710;, &nbsp;are
-protected i.e. escaped.</p>
-
-<p style="margin-left:9%; margin-top: 1em">Symbols such as
+<p style="margin-left:6%; margin-top: 1em">Symbols such as
 &lt;, &gt;, &lt;=, &gt;= are converted to inline math.</p>
 
-<p style="margin-left:9%; margin-top: 1em">URLs such as
+<p style="margin-left:6%; margin-top: 1em">URLs such as
 https://www.github.com/MilanSkocic/<b>txt2latex</b> are
 converted to hyper-references. The URLs must start with
 <b>http</b>(s)://.</p>
 
-<p style="margin-left:9%; margin-top: 1em">Special words
+<p style="margin-left:6%; margin-top: 1em">Special words
 such as LaTeX and TeX are turned into their equivalent
 commands in latex.</p>
 
@@ -171,122 +162,88 @@ commands in latex.</p>
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em"><b>-d
-date</b></p>
+<p style="margin-left:6%; margin-top: 1em"><b>-d</b>
+<i>DATA</i></p>
 
-<p style="margin-left:18%;">Set date. Defaults to current
+<p style="margin-left:15%;">Set date. Defaults to current
 date.</p>
 
-<p style="margin-left:9%;"><b>-t mytitle</b></p>
+<p style="margin-left:6%;"><b>-t</b> <i>TITLE</i></p>
 
-<p style="margin-left:18%;">Set the title. If the title is
+<p style="margin-left:15%;">Set the title. If the title is
 set, <b>txt2latex</b> will automatically add all the markups
 necessary to create a standalone latex document that can be
 compiled with pdflatex. Xelatex and lualatex are not
 supported.</p>
 
-<p style="margin-left:9%;"><b>-a author</b></p>
+<p style="margin-left:6%;"><b>-a</b> <i>AUTHOR</i></p>
 
-<p style="margin-left:18%;">Set the author.</p>
+<p style="margin-left:15%;">Set the author.</p>
 
-<p style="margin-left:9%;"><b>-s shift</b></p>
+<p style="margin-left:6%;"><b>-s</b> <i>SHIFT</i></p>
 
-<p style="margin-left:18%;">Shift heading level by 0
+<p style="margin-left:15%;">Shift heading level by 0
 (section), 1 (subsection), or 2 (subsection). Defaults to
 0.</p>
 
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
+<p style="margin-left:6%;"><b>-I</b> <i>TXT</i></p>
 
+<p style="margin-left:15%;">Italic txt in output. Can be
+specified more than once.</p>
 
-<p><b>-I txt</b></p></td>
-<td width="1%"></td>
-<td width="73%">
+<p style="margin-left:6%;"><b>-B</b> <i>TXT</i></p>
 
+<p style="margin-left:15%;">Bold txt in output. Can be
+specified more than once.</p>
 
-<p>Italic txt in output. Can be specified more than
-once.</p> </td>
-<td width="9%">
-</td></tr>
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
+<p style="margin-left:6%;"><b>-M</b> <i>TXT</i></p>
 
+<p style="margin-left:15%;">Monospace txt in output. Can be
+specified more than once.</p>
 
-<p><b>-B txt</b></p></td>
-<td width="1%"></td>
-<td width="73%">
+<p style="margin-left:6%;"><b>-E</b> <i>TXT</i></p>
 
+<p style="margin-left:15%;">Emphasize txt in output. Can be
+specified more than once.</p>
 
-<p>Bold txt in output. Can be specified more than once.</p></td>
-<td width="9%">
-</td></tr>
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
+<p style="margin-left:6%;"><b>-P</b> <i>PACKAGE</i></p>
 
-
-<p><b>-M txt</b></p></td>
-<td width="1%"></td>
-<td width="73%">
-
-
-<p>Monospace txt in output. Can be specified more than
-once.</p> </td>
-<td width="9%">
-</td></tr>
-<tr valign="top" align="left">
-<td width="9%"></td>
-<td width="8%">
-
-
-<p><b>-E txt</b></p></td>
-<td width="1%"></td>
-<td width="73%">
-
-
-<p>Emphasize txt in output. Can be specified more than
-once.</p> </td>
-<td width="9%">
-</td></tr>
-</table>
-
-<p style="margin-left:9%;"><b>-P package</b></p>
-
-<p style="margin-left:18%;">Add packages or LaTeX or TeX
+<p style="margin-left:15%;">Add packages or LaTeX or TeX
 commands in the preambule.</p>
 
-<p style="margin-left:9%;"><b>-m, --man</b></p>
+<p style="margin-left:6%;"><b>-m</b><i>,</i>
+<b>--man</b></p>
 
-<p style="margin-left:18%;">Apply some special formatting
+<p style="margin-left:15%;">Apply some special formatting
 for man pages.</p>
 
-<p style="margin-left:9%;"><b>-n, --num</b></p>
+<p style="margin-left:6%;"><b>-n</b><i>,</i>
+<b>--num</b></p>
 
-<p style="margin-left:18%;">Unnumbered sections. By
+<p style="margin-left:15%;">Unnumbered sections. By
 default, sections are not numbered.</p>
 
-<p style="margin-left:9%;"><b>-u, --usage</b></p>
+<p style="margin-left:6%;"><b>-u</b><i>,</i>
+<b>--usage</b></p>
 
-<p style="margin-left:18%;">Display synopsis.</p>
+<p style="margin-left:15%;">Display synopsis.</p>
 
-<p style="margin-left:9%;"><b>-v, --version</b></p>
+<p style="margin-left:6%;"><b>-v</b><i>,</i>
+<b>--version</b></p>
 
-<p style="margin-left:18%;">Display version.</p>
+<p style="margin-left:15%;">Display version.</p>
 
-<p style="margin-left:9%;"><b>-h, --help</b></p>
+<p style="margin-left:6%;"><b>-h</b><i>,</i>
+<b>--help</b></p>
 
-<p style="margin-left:18%;">Display help.</p>
+<p style="margin-left:15%;">Display help.</p>
 
 <h2>NOTES
 <a name="NOTES"></a>
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em">The option
+<p style="margin-left:6%; margin-top: 1em">The option
 <b>-m</b> is an alpha feature and not fully implemented. The
 formatting is done by applying the adequate preambule in a
 standalone document for matching the rendering of man
@@ -295,43 +252,44 @@ standalone document for matching the rendering of man
 <table width="100%" border="0" rules="none" frame="void"
        cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
-<td width="18%"></td>
+<td width="15%"></td>
 <td width="1%">
 
 
 <p>&bull;</p></td>
 <td width="3%"></td>
-<td width="63%">
+<td width="61%">
 
 
 <p>SYNOPSIS section is formatted as monospaced text.</p></td>
-<td width="15%">
+<td width="20%">
 </td></tr>
 <tr valign="top" align="left">
-<td width="18%"></td>
+<td width="15%"></td>
 <td width="1%">
 
 
-<p>&bull;</p></td>
+<p style="margin-top: 1em">&bull;</p></td>
 <td width="3%"></td>
-<td width="63%">
+<td width="61%">
 
 
-<p>Set font to times.</p></td>
-<td width="15%">
+<p style="margin-top: 1em">Set font to times.</p></td>
+<td width="20%">
 </td></tr>
 <tr valign="top" align="left">
-<td width="18%"></td>
+<td width="15%"></td>
 <td width="1%">
 
 
-<p>&bull;</p></td>
+<p style="margin-top: 1em">&bull;</p></td>
 <td width="3%"></td>
-<td width="63%">
+<td width="61%">
 
 
-<p>Set correct paragraph indentation.</p></td>
-<td width="15%">
+<p style="margin-top: 1em">Set correct paragraph
+indentation.</p> </td>
+<td width="20%">
 </td></tr>
 </table>
 
@@ -340,41 +298,33 @@ standalone document for matching the rendering of man
 </h2>
 
 
-<p style="margin-left:9%; margin-top: 1em">Simple
+<p style="margin-left:6%; margin-top: 1em">Simple
 conversion</p>
 
-<p style="margin-left:9%; margin-top: 1em">$ txt2latex FILE
+<p style="margin-left:6%; margin-top: 1em">$ txt2latex FILE
 &gt; FILE.tex</p>
 
-<p style="margin-left:9%; margin-top: 1em">Conversion with
-document title</p>
+<p style="margin-left:6%; margin-top: 1em">Conversion with
+document title <br>
+$ txt2latex -t &quot;title&quot; -a &quot;author&quot; -I
+&quot;word&quot; FILE &gt; FILE.tex</p>
 
-<p style="margin-left:9%; margin-top: 1em">$ txt2latex -t
-&quot;title&quot; -a &quot;author&quot; -I &quot;word&quot;
-FILE &gt; FILE.tex</p>
+<p style="margin-left:6%; margin-top: 1em">Conversion with
+custom packages and direct rendering with pdflatex <br>
+$ txt2latex -t &quot;title&quot; -a &quot;author&quot; -I
+&quot;word&quot; -P &quot;\usepackage{ccfonts}&quot; |
+pdflatex -jobname=&quot;txt2latex&quot;</p>
 
-<p style="margin-left:9%; margin-top: 1em">Conversion with
-custom packages and direct rendering with pdflatex</p>
+<p style="margin-left:6%; margin-top: 1em">Try this command
+to format this text itself and to produce a pdf: <br>
+$ txt2latex -h 2&gt;&amp;1 | txt2latex -t
+&quot;txt2latex(1)&quot; -a &quot;User commands&quot; --man
+| pdflatex -jobname=&quot;txt2latex&quot;</p>
 
-<p style="margin-left:9%; margin-top: 1em">$ txt2latex -t
-&quot;title&quot; -a &quot;author&quot; -I &quot;word&quot;
--P &quot;\usepackage{ccfonts}&quot; | pdflatex
--jobname=&quot;txt2latex&quot;</p>
-
-<p style="margin-left:9%; margin-top: 1em">Try this command
-to format this text itself and to produce a pdf:</p>
-
-<p style="margin-left:9%; margin-top: 1em">$ txt2latex -h
-2&gt;&amp;1 | txt2latex -t &quot;txt2latex(1)&quot; -a
-&quot;User commands&quot; --man | pdflatex
--jobname=&quot;txt2latex&quot;</p>
-
-<p style="margin-left:9%; margin-top: 1em">Compare it to
-the man page generated by <b>txt2man</b>(1):</p>
-
-<p style="margin-left:9%; margin-top: 1em">$ txt2latex -h
-2&gt;&amp;1 | txt2man -s 1 -t txt2latex -v &quot;User
-commands&quot; -r 0.5.0 | man -l -Tpdf</p>
+<p style="margin-left:6%; margin-top: 1em">Compare it to
+the man page generated by <b>txt2man(1)</b>: <br>
+$ txt2latex -h 2&gt;&amp;1 | txt2man -s 1 -t txt2latex -v
+&quot;User commands&quot; -r 0.5.0 | man -l -Tpdf</p>
 
 <h2>SEE ALSO
 <a name="SEE ALSO"></a>
@@ -382,7 +332,7 @@ commands&quot; -r 0.5.0 | man -l -Tpdf</p>
 
 
 
-<p style="margin-left:9%; margin-top: 1em"><b>txt2man</b>(1)</p>
+<p style="margin-left:6%; margin-top: 1em"><b>txt2man</b>(1)</p>
 <hr>
 </body>
 </html>
