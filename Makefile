@@ -23,7 +23,7 @@ $(BIN): $(SRC)
 docs:
 	#txt2man -s 1 -t $(APP_NAME) -v "User commands" -r $(APP_VERSION) $(MAN).man > $(MAN)
 	cat $(MAN).man > tmp
-	sed -E "s/@VERSION@/$(FPM_VERSION)/g;s/@DATE@/$(shell date +'%d %B %Y')/g" tmp > $(MAN)
+	sed -E "s/@VERSION@/$(APP_VERSION)/g;s/@DATE@/$(shell date +'%d %B %Y')/g" tmp > $(MAN)
 	rm -fv tmp
 	man -Thtml -l $(MAN) > $(HTML) 
 	gzip -k -f $(MAN)
